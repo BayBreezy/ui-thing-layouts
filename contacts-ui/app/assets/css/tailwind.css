@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240.02 6% 10%;
+    --foreground: 223.81 0% 98%;
+    --card: 240.02 6% 10%;
+    --card-foreground: 223.81 0% 98%;
+    --popover: 240.02 6% 10%;
+    --popover-foreground: 223.81 0% 98%;
+    --primary: 159.98 100% 30%;
+    --primary-foreground: 151.78 81% 96%;
+    --secondary: 240.05 4% 16%;
+    --secondary-foreground: 223.81 0% 98%;
+    --muted: 240.03 5% 13%; /* Custom */
+    --muted-foreground: 240.08 6% 64%;
+    --accent: 240.03 5% 13%;
+    --accent-foreground: 223.81 0% 98%;
+    --destructive: 356.95 96% 57.99999999999999%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240.01 6% 18%;
+    --input: 240.01 6% 18%;
+    --ring: 240.13 6% 34%;
+    --sidebar-background: 240.03 5% 13%;
+    --sidebar-foreground: 239.99 4% 96%;
+    --sidebar-primary: 159.98 100% 30%; /* Same as primary */
+    --sidebar-primary-foreground: 223.81 -173% 100%; /* Same as primary-foreground */
+    --sidebar-accent: 240.05 4% 16%;
+    --sidebar-accent-foreground: 239.99 4% 96%;
+    --sidebar-border: 240.05 4% 16%;
+    --sidebar-ring: 240.13 6% 34%; /* Same as primary */
+    --sidebar-input: 240.05 4% 16%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240.02 6% 10%;
+    --foreground: 223.81 0% 98%;
+    --card: 240.02 6% 10%;
+    --card-foreground: 223.81 0% 98%;
+    --popover: 240.02 6% 10%;
+    --popover-foreground: 223.81 0% 98%;
+    --primary: 159.98 100% 30%;
+    --primary-foreground: 151.78 81% 96%;
+    --secondary: 240.05 4% 16%;
+    --secondary-foreground: 223.81 0% 98%;
+    --muted: 240.03 5% 13%; /* Custom */
+    --muted-foreground: 240.08 6% 64%;
+    --accent: 240.03 5% 13%;
+    --accent-foreground: 223.81 0% 98%;
+    --destructive: 356.95 96% 57.99999999999999%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240.01 6% 18%;
+    --input: 240.01 6% 18%;
+    --ring: 240.13 6% 34%;
+    --sidebar-background: 240.03 5% 13%;
+    --sidebar-foreground: 239.99 4% 96%;
+    --sidebar-primary: 159.98 100% 30%; /* Same as primary */
+    --sidebar-primary-foreground: 223.81 -173% 100%; /* Same as primary-foreground */
+    --sidebar-accent: 240.05 4% 16%;
+    --sidebar-accent-foreground: 239.99 4% 96%;
+    --sidebar-border: 240.05 4% 16%;
+    --sidebar-ring: 240.13 6% 34%; /* Same as primary */
+    --sidebar-input: 240.05 4% 16%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply dark antialiased; /* Dark mode */
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}

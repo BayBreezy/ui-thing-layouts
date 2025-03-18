@@ -5,3 +5,4 @@ A collection of layouts created with the [UI Thing](https://ui-thing.behonbaker.
 ## Layouts
 
 - [AI Chat](https://ai-chat-ui.behonbaker.com) - A responsive AI Chat UI layout.
+- [Green Contact UI](https://green-contact-ui.behonbaker.com) - A contact manager dashboard ui.
