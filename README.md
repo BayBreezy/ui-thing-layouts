@@ -1,10 +1,22 @@
 # UI Thing Layouts & Examples
 
-A collection of layouts created with the [UI Thing](https://ui-thing.behonbaker.com/getting-started/introduction) library.
+[![License: MIT](https://img.shields.io/github/license/BayBreezy/ui-thing-layouts)](https://github.com/BayBreezy/ui-thing-layouts/blob/main/LICENSE.md)
+[![GitHub stars](https://img.shields.io/github/stars/BayBreezy/ui-thing-layouts?style=flat)](https://github.com/BayBreezy/ui-thing-layouts/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/BayBreezy/ui-thing-layouts)](https://github.com/BayBreezy/ui-thing-layouts/commits/main)
+[![Built with UI Thing](https://img.shields.io/badge/built%20with-UI%20Thing-4f46e5)](https://uithing.com)
+[![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?logo=nuxt&logoColor=white)](https://nuxt.com)
+
+A collection of layouts created with the [UI Thing](https://uithing.com/getting-started/introduction) library.
 
 ## Layouts
 
-- [AI Chat](https://ai-chat-ui.behonbaker.com) - A responsive AI Chat UI layout.
+- [Orbit — AI Chat](ai-chat/) - An interactive Nuxt AI workspace with chat, assistants, local audio, analytics, and optional demo auth. [Live site](https://ai-chat-ui.behonbaker.com) (deployment managed separately).
+  <br>
+
+<a href="https://ai-chat-ui.behonbaker.com"><img src="ai-chat/public/screenshots/workspace-light.png" alt="Orbit, an interactive AI chat workspace: chat composer with suggested prompts and a preferences panel" width="720"></a>
+
+---
+
 - [Green Contact UI](https://green-contact-ui.behonbaker.com) - A contact manager dashboard ui.
 - [Campaigns UI](https://campaigns-ui.behonbaker.com) - A responsive campaigns dashboard ui.
 - [Onboarding Steps UI](https://onboarding-steps-ui.behonbaker.com) - A responsive onboarding steps ui.
