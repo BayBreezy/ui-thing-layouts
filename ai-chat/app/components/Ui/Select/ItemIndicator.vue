@@ -1,25 +1,34 @@
 <template>
-  <SelectItemIndicator v-bind="forwarded" class="flex items-center justify-center">
+  <SelectItemIndicator
+    data-slot="select-item-indicator"
+    v-bind="forwarded"
+    class="flex items-center justify-center"
+  >
     <slot>
-      <Icon :class="styles({ class: props.class })" :name="icon || 'lucide:check'" />
+      <Icon
+        :class="styles({ class: normalizeClass(props.class) || undefined })"
+        :name="icon || 'lucide:check'"
+      />
     </slot>
   </SelectItemIndicator>
 </template>
 
 <script lang="ts" setup>
-  import { SelectItemIndicator } from "radix-vue";
-  import type { SelectItemIndicatorProps } from "radix-vue";
+  import { SelectItemIndicator } from "reka-ui";
+  import type { SelectItemIndicatorProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     SelectItemIndicatorProps & {
-      /** Icon to render */
+      /** Icon to render. */
       icon?: string;
-      /** Custom class(es) to add to the parent */
-      class?: any;
+      /** Custom class(es) to add to the parent. */
+      class?: HTMLAttributes["class"];
     }
   >();
   const forwarded = reactiveOmit(props, "class", "icon");
   const styles = tv({
-    base: "h-4 w-4",
+    base: "size-4",
   });
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <SelectPortal v-bind="props">
+  <SelectPortal data-slot="select-portal" v-bind="props">
     <slot />
   </SelectPortal>
 </template>
 
 <script lang="ts" setup>
-  import { SelectPortal } from "radix-vue";
-  import type { SelectPortalProps } from "radix-vue";
+  import { SelectPortal } from "reka-ui";
+  import type { SelectPortalProps } from "reka-ui";
 
   const props = defineProps<SelectPortalProps>();
 </script>

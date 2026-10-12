@@ -1,18 +1,24 @@
 <template>
-  <SelectViewport :class="styles({ position, class: props.class })" v-bind="forwarded">
+  <SelectViewport
+    data-slot="select-viewport"
+    :class="styles({ position, class: normalizeClass(props.class) || undefined })"
+    v-bind="forwarded"
+  >
     <slot />
   </SelectViewport>
 </template>
 
 <script lang="ts" setup>
-  import { SelectViewport } from "radix-vue";
-  import type { SelectViewportProps } from "radix-vue";
+  import { SelectViewport } from "reka-ui";
+  import type { SelectViewportProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     SelectViewportProps & {
       position?: "item-aligned" | "popper";
-      /** Custom class(es) to add to the parent */
-      class?: any;
+      /** Custom class(es) to add to the parent. */
+      class?: HTMLAttributes["class"];
     }
   >();
   const forwarded = reactiveOmit(props, "class");
@@ -21,7 +27,7 @@
     variants: {
       position: {
         popper:
-          "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+          "h-(--reka-select-trigger-height) w-full min-w-(--reka-select-trigger-width) scroll-my-1",
         "item-aligned": "",
       },
     },

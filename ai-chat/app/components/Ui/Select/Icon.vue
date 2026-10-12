@@ -1,26 +1,31 @@
 <template>
-  <SelectIcon v-bind="forwarded" class="flex items-center justify-center">
+  <SelectIcon data-slot="select-icon" v-bind="forwarded" class="flex items-center justify-center">
     <slot>
-      <Icon :class="styles({ class: props.class })" :name="icon || 'lucide:chevrons-up-down'" />
+      <Icon
+        :class="styles({ class: normalizeClass(props.class) || undefined })"
+        :name="icon || 'lucide:chevron-down'"
+      />
     </slot>
   </SelectIcon>
 </template>
 
 <script lang="ts" setup>
-  import { SelectIcon, useForwardProps } from "radix-vue";
-  import type { SelectIconProps } from "radix-vue";
+  import { SelectIcon, useForwardProps } from "reka-ui";
+  import type { SelectIconProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     SelectIconProps & {
-      /** Icon to render */
+      /** Icon to render. */
       icon?: string;
-      /** Custom class(es) to add to the parent */
-      class?: any;
+      /** Custom class(es) to add to the parent. */
+      class?: HTMLAttributes["class"];
     }
   >();
   const forwarded = useForwardProps(reactiveOmit(props, "class"));
 
   const styles = tv({
-    base: "h-4 w-4 shrink-0 text-muted-foreground opacity-70",
+    base: "size-4 shrink-0 opacity-50",
   });
 </script>

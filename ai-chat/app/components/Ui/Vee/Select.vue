@@ -6,14 +6,16 @@
     <div class="relative">
       <slot name="icon">
         <span v-if="hasIcon" lass="absolute inset-y-0 left-3 flex items-center justify-center">
-          <Icon v-if="icon" :name="icon" class="h-4 w-4 text-muted-foreground" />
+          <Icon v-if="icon" :name="icon" class="size-4 text-muted-foreground" />
         </span>
       </slot>
       <UiNativeSelect
         :id="inputId"
+        :aria-describedby="errorMessage || hint ? `${inputId}-message` : undefined"
         v-model="value"
         :required="required"
         :trailing-icon="trailingIcon"
+        :aria-invalid="!!errorMessage"
         :name="name"
         v-bind="$attrs"
         :class="[hasIcon && 'pl-9']"
@@ -22,15 +24,27 @@
         <slot />
       </UiNativeSelect>
     </div>
-    <TransitionSlide group tag="div">
-      <p v-if="hint && !errorMessage" key="hint" class="mt-1.5 text-sm text-muted-foreground">
-        {{ hint }}
-      </p>
-
-      <p v-if="errorMessage" key="errorMessage" class="mt-1.5 text-sm text-destructive">
-        {{ errorMessage }}
-      </p>
-    </TransitionSlide>
+    <div>
+      <slot name="hint" :error-message="errorMessage" :value>
+        <p
+          v-if="hint && !errorMessage"
+          :id="`${inputId}-message`"
+          class="mt-1.5 text-sm text-muted-foreground"
+        >
+          {{ hint }}
+        </p>
+      </slot>
+      <slot name="errorMessage" :error-message="errorMessage" :value>
+        <p
+          v-if="errorMessage"
+          :id="`${inputId}-message`"
+          role="alert"
+          class="mt-1.5 text-sm text-destructive"
+        >
+          {{ errorMessage }}
+        </p>
+      </slot>
+    </div>
   </div>
 </template>
 

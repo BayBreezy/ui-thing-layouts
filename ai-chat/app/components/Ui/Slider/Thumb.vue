@@ -1,21 +1,27 @@
 <template>
-  <SliderThumb :class="styles({ class: props.class })" v-bind="forwarded">
+  <SliderThumb
+    data-slot="slider-thumb"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+    v-bind="forwarded"
+  >
     <slot />
   </SliderThumb>
 </template>
 
 <script lang="ts" setup>
-  import { SliderThumb } from "radix-vue";
-  import type { SliderThumbProps } from "radix-vue";
+  import { SliderThumb } from "reka-ui";
+  import type { SliderThumbProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     SliderThumbProps & {
-      /** Custom class(es) to add to parent element */
-      class?: any;
+      /** Custom class(es) to add to parent element. */
+      class?: HTMLAttributes["class"];
     }
   >();
   const forwarded = reactiveOmit(props, "class");
   const styles = tv({
-    base: "block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    base: "block size-4 shrink-0 rounded-full border border-primary bg-background shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
   });
 </script>

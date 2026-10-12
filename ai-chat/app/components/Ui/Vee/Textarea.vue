@@ -5,31 +5,45 @@
     </UiLabel>
     <div class="relative">
       <slot name="icon">
-        <span v-if="hasIcon" class="absolute left-3 top-3 flex items-center justify-center">
-          <Icon v-if="icon" :name="icon" class="h-4 w-4 text-muted-foreground/70" />
+        <span v-if="hasIcon" class="absolute top-3 left-3 flex items-center justify-center">
+          <Icon v-if="icon" :name="icon" class="size-4 text-muted-foreground/70" />
         </span>
       </slot>
       <UiTextarea
         :id="inputId"
+        :aria-describedby="errorMessage || hint ? `${inputId}-message` : undefined"
         v-model="value"
         :required="required"
         :rows="rows"
         :name="name"
+        :aria-invalid="!!errorMessage"
         v-bind="$attrs"
         :class="[hasIcon && 'pl-9']"
         :placeholder="placeholder"
         @blur="handleBlur"
       />
     </div>
-    <TransitionSlide group tag="div">
-      <p v-if="hint && !errorMessage" key="hint" class="mt-1.5 text-sm text-muted-foreground">
-        {{ hint }}
-      </p>
-
-      <p v-if="errorMessage" key="errorMessage" class="mt-1.5 text-sm text-destructive">
-        {{ errorMessage }}
-      </p>
-    </TransitionSlide>
+    <div>
+      <slot name="hint" :error-message="errorMessage" :value>
+        <p
+          v-if="hint && !errorMessage"
+          :id="`${inputId}-message`"
+          class="mt-1.5 text-sm text-muted-foreground"
+        >
+          {{ hint }}
+        </p>
+      </slot>
+      <slot name="errorMessage" :error-message="errorMessage" :value>
+        <p
+          v-if="errorMessage"
+          :id="`${inputId}-message`"
+          role="alert"
+          class="mt-1.5 text-sm text-destructive"
+        >
+          {{ errorMessage }}
+        </p>
+      </slot>
+    </div>
   </div>
 </template>
 

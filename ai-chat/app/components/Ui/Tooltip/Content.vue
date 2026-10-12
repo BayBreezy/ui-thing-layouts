@@ -1,14 +1,23 @@
 <template>
   <UiTooltipPortal :to="to">
-    <TooltipContent v-bind="{ ...forwarded, ...$attrs }" :class="styles({ class: props.class })">
+    <TooltipContent
+      data-slot="tooltip-content"
+      v-bind="{ ...forwarded, ...$attrs }"
+      :class="styles({ class: normalizeClass(props.class) || undefined })"
+    >
       <slot />
+      <slot name="arrow">
+        <UiTooltipArrow v-if="showArrow" />
+      </slot>
     </TooltipContent>
   </UiTooltipPortal>
 </template>
 
 <script lang="ts" setup>
-  import { TooltipContent, useForwardPropsEmits } from "radix-vue";
-  import type { TooltipContentEmits, TooltipContentProps } from "radix-vue";
+  import { TooltipContent, useForwardPropsEmits } from "reka-ui";
+  import type { TooltipContentEmits, TooltipContentProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   defineOptions({ inheritAttrs: false });
 
@@ -16,13 +25,14 @@
     defineProps<
       TooltipContentProps & {
         to?: string | HTMLElement;
-        class?: any;
+        class?: HTMLAttributes["class"];
+        showArrow?: boolean;
       }
     >(),
     {
       side: "top",
-      sideOffset: 8,
-      align: "start",
+      sideOffset: 4,
+      align: "center",
       alignOffset: -4,
       avoidCollisions: true,
       collisionBoundary: () => [],
@@ -35,6 +45,6 @@
   const forwarded = useForwardPropsEmits(reactiveOmit(props, "class", "to"), emits);
 
   const styles = tv({
-    base: "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+    base: "relative z-50 max-w-70 animate-in rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
   });
 </script>

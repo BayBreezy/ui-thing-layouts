@@ -1,17 +1,23 @@
 <template>
-  <SliderRange :class="styles({ class: props.class })" v-bind="forwarded">
+  <SliderRange
+    data-slot="slider-range"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+    v-bind="forwarded"
+  >
     <slot />
   </SliderRange>
 </template>
 
 <script lang="ts" setup>
-  import { SliderRange } from "radix-vue";
-  import type { SliderRangeProps } from "radix-vue";
+  import { SliderRange } from "reka-ui";
+  import type { SliderRangeProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     SliderRangeProps & {
-      /** Custom class(es) to add to parent element */
-      class?: any;
+      /** Custom class(es) to add to parent element. */
+      class?: HTMLAttributes["class"];
     }
   >();
   const forwarded = reactiveOmit(props, "class");

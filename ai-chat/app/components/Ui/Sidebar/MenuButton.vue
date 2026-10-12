@@ -1,11 +1,11 @@
 <template>
-  <UiSidebarMenuButtonChild v-if="!tooltip" v-bind="{ ...delegatedProps, ...$attrs }">
+  <UiSidebarMenuButtonChild v-if="!tooltip" v-bind="{ ...forwarded, ...$attrs }">
     <slot />
   </UiSidebarMenuButtonChild>
 
   <UiTooltip v-else>
     <UiTooltipTrigger as-child>
-      <UiSidebarMenuButtonChild v-bind="{ ...delegatedProps, ...$attrs }">
+      <UiSidebarMenuButtonChild v-bind="{ ...forwarded, ...$attrs }">
         <slot />
       </UiSidebarMenuButtonChild>
     </UiTooltipTrigger>
@@ -19,8 +19,10 @@
 </template>
 
 <script lang="ts">
-  import type { SidebarMenuButtonProps } from "./MenuButtonChild.vue";
+  import { useForwardProps } from "reka-ui";
   import type { Component } from "vue";
+
+  import type { SidebarMenuButtonProps } from "./MenuButtonChild.vue";
 </script>
 <script setup lang="ts">
   defineOptions({ inheritAttrs: false });
@@ -40,8 +42,5 @@
 
   const { isMobile, state } = useSidebar();
 
-  const delegatedProps = computed(() => {
-    const { tooltip, ...delegated } = props;
-    return delegated;
-  });
+  const forwarded = useForwardProps(reactiveOmit(props, ["tooltip"]));
 </script>
