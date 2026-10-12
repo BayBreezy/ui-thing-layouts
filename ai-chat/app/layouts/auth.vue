@@ -1,0 +1,55 @@
+<template>
+  <div class="grid min-h-svh lg:grid-cols-2">
+    <aside class="relative hidden overflow-hidden border-r bg-muted p-10 lg:flex lg:flex-col">
+      <OrbitLogo />
+      <div class="absolute top-28 -right-28 size-150 rounded-full border border-primary/20">
+        <div class="absolute inset-16 rounded-full border border-primary/20">
+          <div class="absolute inset-16 rounded-full border border-primary/20" />
+        </div>
+        <div
+          class="absolute top-28 left-10 size-6 rounded-full bg-primary shadow-lg shadow-primary/40"
+        />
+      </div>
+      <div class="relative mt-auto max-w-md pb-16">
+        <UiBadge variant="outline" class="mb-6">A little space for big ideas</UiBadge>
+        <h2 class="text-3xl font-semibold tracking-tight">
+          Your next great idea<br />starts with a conversation.
+        </h2>
+        <p class="mt-4 text-sm leading-6 text-muted-foreground">
+          An AI workspace built for curious minds. Explore chat, assistants, and audio in a
+          thoughtfully crafted demo.
+        </p>
+      </div>
+      <p class="relative text-xs text-muted-foreground">
+        Designed & built by
+        <NuxtLink
+          class="text-primary underline underline-offset-2"
+          target="_blank"
+          external
+          href="https://behonbaker.com"
+          >Behon Baker</NuxtLink
+        >
+        · Powered by
+        <NuxtLink
+          class="text-primary underline underline-offset-2"
+          target="_blank"
+          external
+          href="https://uithing.com"
+          >UI Thing</NuxtLink
+        >
+      </p>
+    </aside>
+    <main class="flex flex-col p-6 sm:p-10">
+      <div class="flex items-center justify-between">
+        <NuxtLink to="/" class="lg:invisible"><OrbitLogo /></NuxtLink>
+        <UiButton to="/" variant="link" class="text-muted-foreground">
+          Continue demo <Icon name="lucide:arrow-up-right" />
+        </UiButton>
+      </div>
+      <div class="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-14"><slot /></div>
+      <p class="text-center text-xs text-muted-foreground">
+        A portfolio demo. No real accounts or passwords are saved.
+      </p>
+    </main>
+  </div>
+</template>
