@@ -1,5 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
 import { test, expect, type Page } from "@playwright/test";
+// Audit the product, not the dev-only Nuxt DevTools overlay. Wait for colour transitions to finish
+// first: right after a theme switch, controls still report their previous text colour.
+const audit = async (page: Page) => {
+  await page.waitForFunction(
+    () => !document.getAnimations().some((animation) => animation instanceof CSSTransition)
+  );
+  return new AxeBuilder({ page }).exclude("nuxt-devtools-frame").analyze();
+};
 async function go(page: Page, path: string) {
   await page.goto(path);
   await expect(page.locator('[data-demo-ready="true"]')).toBeAttached();
@@ -192,7 +200,7 @@ test("responsive themes, keyboard search and automated accessibility", async ({ 
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true
     );
-    const result = await new AxeBuilder({ page }).analyze();
+    const result = await audit(page);
     expect(result.violations).toEqual([]);
   }
   expect(hydrationErrors).toEqual([]);
@@ -201,7 +209,7 @@ test("responsive themes, keyboard search and automated accessibility", async ({ 
   await page.keyboard.press("Escape");
   await page.getByLabel("Switch to dark mode").click();
   await expect(page.locator("html")).toHaveClass(/dark/);
-  const result = await new AxeBuilder({ page }).analyze();
+  const result = await audit(page);
   expect(result.violations).toEqual([]);
 });
 test("unavailable storage and request failures are recoverable", async ({ page }) => {
