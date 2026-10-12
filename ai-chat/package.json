@@ -3,12 +3,13 @@
   "private": true,
   "author": {
     "name": "Behon Baker",
-    "url": "https://behonbaker.com",
-    "email": "behonbaker@yahoo.com"
+    "email": "behonbaker@yahoo.com",
+    "url": "https://behonbaker.com"
   },
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "clean": "node scripts/clean.mjs && bun install && nuxt prepare",
     "dev": "nuxt dev --host=0.0.0.0",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
