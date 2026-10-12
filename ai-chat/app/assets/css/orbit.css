@@ -1,0 +1,70 @@
+/* App-level extras that are not part of the UI Thing theme. Design tokens live in tailwind.css. */
+@reference "./tailwind.css";
+
+@layer base {
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer components {
+  /** Standard page container used by every non-chat route. */
+  .page-shell {
+    @apply mx-auto w-full max-w-6xl p-4 md:p-6 lg:p-8;
+  }
+
+  /** Typography for rendered markdown (chat replies and docs). */
+  .orbit-prose {
+    @apply text-sm leading-7;
+  }
+  .orbit-prose h1,
+  .orbit-prose h2,
+  .orbit-prose h3 {
+    @apply mt-6 mb-3 font-semibold tracking-tight text-foreground;
+  }
+  .orbit-prose h1 {
+    @apply text-2xl;
+  }
+  .orbit-prose h2 {
+    @apply text-xl;
+  }
+  .orbit-prose h3 {
+    @apply text-lg;
+  }
+  .orbit-prose p {
+    @apply my-3;
+  }
+  .orbit-prose :first-child {
+    @apply mt-0;
+  }
+  .orbit-prose ol {
+    @apply my-4 list-decimal space-y-2 pl-5;
+  }
+  .orbit-prose ul {
+    @apply my-4 list-disc space-y-2 pl-5;
+  }
+  .orbit-prose pre {
+    @apply my-5 max-w-full overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-xs leading-6;
+  }
+  .orbit-prose code:not(pre code) {
+    @apply rounded bg-muted px-1.5 py-0.5 font-mono text-xs;
+  }
+  .orbit-prose a {
+    @apply text-primary underline underline-offset-4;
+  }
+  /* MDC wraps headings in self-links; they should read as headings, not links. */
+  .orbit-prose :is(h1, h2, h3, h4, h5, h6) a {
+    @apply text-inherit no-underline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
