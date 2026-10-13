@@ -1,53 +1,35 @@
-<template>
-  <div class="dark">
-    <NuxtRouteAnnouncer />
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-    <UiVueSonner />
-  </div>
-</template>
-
-<script lang="ts" setup>
-  const title = "Contacts UI Dashboard - Manage Your Contacts Efficiently | UI Thing";
-  const description =
-    "Organize and manage your contacts easily with this modern and responsive Contacts UI Dashboard. Fast performance, powerful search, and seamless user experience.";
-  const image = "/cover.jpeg";
-
-  useHead({
-    htmlAttrs: { lang: "en", class: "bg-sidebar dark" },
-    link: [{ rel: "icon", type: "image/png", href: "/icon.png" }],
+<script setup lang="ts">
+  const { state, ready } = useDemo();
+  const { data, error, refresh } = await useAsyncData("verdant-bootstrap", () =>
+    $fetch("/api/demo/bootstrap")
+  );
+  if (!state.value && data.value) state.value = data.value;
+  watch(data, (value) => {
+    if (value && !state.value) state.value = value;
   });
-
-  useSeoMeta({
-    title,
-    description,
-    author: "UI Thing",
-    keywords:
-      "contacts dashboard, contact manager, UI dashboard, contact app, Vue dashboard, React dashboard",
-    robots: "index, follow",
-    ogTitle: title,
-    ogDescription: description,
-    ogType: "website",
-    ogImage: image,
-    ogUrl: import.meta.env.PUBLIC_URL || "http://localhost:3000",
-    twitterTitle: title,
-    twitterDescription: description,
-    twitterCard: "summary_large_image",
-    twitterImage: image,
-    themeColor: "#009966",
-  });
-
-  onMounted(() => {
-    const tl = useGsap.timeline();
-    tl.from(`.${GSAP_SIDEBAR}`, { opacity: 0, y: 10, stagger: 0.1 }).from(
-      `.${GSAP_EL}`,
-      {
-        opacity: 0,
-        y: 10,
-        stagger: 0.08,
-      },
-      "<"
-    );
-  });
+  usePageSeo({ title: "A calmer way to keep in touch" });
 </script>
+<template>
+  <UiTooltipProvider :delay-duration="200">
+    <NuxtLoadingIndicator color="var(--primary)" />
+    <NuxtAnnouncer />
+    <div v-if="error && !state" class="flex min-h-screen items-center justify-center p-6">
+      <UiCard class="max-w-md text-center">
+        <UiCardHeader>
+          <VerdantLogo class="mx-auto mb-4" />
+          <UiCardTitle as="h1" class="text-xl">Let's try that again</UiCardTitle>
+          <UiCardDescription>
+            We couldn't load your contacts. Check your connection and retry.
+          </UiCardDescription>
+        </UiCardHeader>
+        <UiCardFooter class="justify-center">
+          <UiButton @click="refresh()">Retry loading contacts</UiButton>
+        </UiCardFooter>
+      </UiCard>
+    </div>
+    <div v-else :data-demo-ready="ready" class="contents">
+      <NuxtLayout><NuxtPage /></NuxtLayout>
+    </div>
+    <UiSonner position="bottom-right" />
+  </UiTooltipProvider>
+</template>

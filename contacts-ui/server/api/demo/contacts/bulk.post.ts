@@ -1,5 +1,5 @@
-import { bulkSchema } from "../../../../../shared/schemas";
-import { demoDelay, requireReference, validatedBody } from "../../../../utils/validation";
+import { bulkSchema } from "../../../../shared/schemas";
+import { demoDelay, requireReference, validatedBody } from "../../../utils/validation";
 export default defineEventHandler(async (event) => {
   const body = await validatedBody(event, bulkSchema);
   body.ids.forEach((id) => requireReference(id, body.context.contactIds, "contact"));

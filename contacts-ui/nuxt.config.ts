@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@vee-validate/nuxt",
     "vue-sonner/nuxt",
+    "motion-v/nuxt",
   ],
   css: ["~/assets/css/tailwind.css", "~/assets/css/verdant.css"],
   fonts: {

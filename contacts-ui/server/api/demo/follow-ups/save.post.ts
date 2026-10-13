@@ -1,7 +1,7 @@
 import { object } from "yup";
 
-import { contextSchema, followUpSchema } from "../../../../../shared/schemas";
-import { demoDelay, requireReference, validatedBody } from "../../../../utils/validation";
+import { contextSchema, followUpSchema } from "../../../../shared/schemas";
+import { demoDelay, requireReference, validatedBody } from "../../../utils/validation";
 export default defineEventHandler(async (event) => {
   const { record, context } = await validatedBody(
     event,

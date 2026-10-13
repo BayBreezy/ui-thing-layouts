@@ -1,5 +1,5 @@
-import { authSchemas } from "../../../../../shared/schemas";
-import { demoDelay, validatedBody } from "../../../../utils/validation";
+import { authSchemas } from "../../../../shared/schemas";
+import { demoDelay, validatedBody } from "../../../utils/validation";
 export default defineEventHandler(async (event) => {
   const action = getRouterParam(event, "action");
   if (!action || !Object.hasOwn(authSchemas, action))

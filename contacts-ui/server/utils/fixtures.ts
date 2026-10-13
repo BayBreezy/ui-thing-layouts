@@ -187,8 +187,6 @@ export function createDemoState(): DemoState {
     const createdDate = addDays(referenceDate, -int(5, 420));
     const base: Contact = {
       id: `contact-${number}`,
-      firstName: "",
-      lastName: "",
       nickname: "",
       company,
       jobTitle: pick(titles),

@@ -2,7 +2,7 @@ import { displayName } from "./contacts";
 import type { Contact } from "./types";
 
 const escape = (value: string) =>
-  value.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/;/g, "\;").replace(/,/g, "\\,");
+  value.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/;/g, "\\;").replace(/,/g, "\\,");
 const type = (label: string) => (label === "mobile" ? "CELL" : label.toUpperCase());
 
 /** vCard 3.0 for one contact, which every address book app can import. */
