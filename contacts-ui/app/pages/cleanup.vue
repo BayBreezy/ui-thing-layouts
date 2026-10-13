@@ -110,7 +110,7 @@
               <li v-for="contact in item.contacts.slice(0, 4)" :key="contact.id">
                 <NuxtLink
                   :to="'/contacts/' + contact.id + '?tab=edit'"
-                  class="text-primary underline-offset-4 hover:underline"
+                  class="text-primary underline underline-offset-4 hover:no-underline"
                   >{{ nameOf(contact) }}</NuxtLink
                 >
               </li>

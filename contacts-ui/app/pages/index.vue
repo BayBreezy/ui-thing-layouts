@@ -262,19 +262,21 @@
             <li>
               <NuxtLink
                 to="/contacts?missing=email"
-                class="text-primary underline-offset-4 hover:underline"
+                class="text-primary underline underline-offset-4 hover:no-underline"
                 >{{ health.missingEmail }} missing an email</NuxtLink
               >
             </li>
             <li>
               <NuxtLink
                 to="/contacts?missing=phone"
-                class="text-primary underline-offset-4 hover:underline"
+                class="text-primary underline underline-offset-4 hover:no-underline"
                 >{{ health.missingPhone }} missing a phone number</NuxtLink
               >
             </li>
             <li>
-              <NuxtLink to="/cleanup" class="text-primary underline-offset-4 hover:underline"
+              <NuxtLink
+                to="/cleanup"
+                class="text-primary underline underline-offset-4 hover:no-underline"
                 >{{ duplicates }} possible
                 {{ duplicates === 1 ? "duplicate" : "duplicates" }}</NuxtLink
               >

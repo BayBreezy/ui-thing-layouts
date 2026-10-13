@@ -697,6 +697,78 @@
                 </UiDropdownMenuContent>
               </UiDropdownMenu>
             </template>
+            <template #footer-left="{ table }">
+              <div class="flex flex-wrap items-center gap-3">
+                <div class="flex items-center gap-2">
+                  <UiLabel
+                    for="contacts-page-size"
+                    class="text-sm font-normal text-muted-foreground"
+                  >
+                    Rows per page
+                  </UiLabel>
+                  <UiNativeSelect
+                    id="contacts-page-size"
+                    class="w-20"
+                    :model-value="String(table.atoms.pagination.get().pageSize)"
+                    @update:model-value="table.setPageSize(Number($event))"
+                  >
+                    <option v-for="size in pageSizes" :key="size" :value="String(size)">
+                      {{ size }}
+                    </option>
+                  </UiNativeSelect>
+                </div>
+                <p class="text-sm text-muted-foreground">
+                  {{ table.getFilteredSelectedRowModel().rows.length }} of
+                  {{ table.getFilteredRowModel().rows.length }} selected
+                </p>
+              </div>
+            </template>
+            <template #footer-right="{ table }">
+              <div class="flex items-center gap-3">
+                <p class="text-sm whitespace-nowrap text-muted-foreground">
+                  Page {{ table.atoms.pagination.get().pageIndex + 1 }} of
+                  {{ Math.max(1, table.getPageCount()) }}
+                </p>
+                <div class="flex items-center gap-1">
+                  <UiButton
+                    variant="outline"
+                    size="icon-sm"
+                    aria-label="First page"
+                    :disabled="!table.getCanPreviousPage()"
+                    @click="table.setPageIndex(0)"
+                  >
+                    <Icon name="lucide:chevrons-left" />
+                  </UiButton>
+                  <UiButton
+                    variant="outline"
+                    size="icon-sm"
+                    aria-label="Previous page"
+                    :disabled="!table.getCanPreviousPage()"
+                    @click="table.previousPage()"
+                  >
+                    <Icon name="lucide:chevron-left" />
+                  </UiButton>
+                  <UiButton
+                    variant="outline"
+                    size="icon-sm"
+                    aria-label="Next page"
+                    :disabled="!table.getCanNextPage()"
+                    @click="table.nextPage()"
+                  >
+                    <Icon name="lucide:chevron-right" />
+                  </UiButton>
+                  <UiButton
+                    variant="outline"
+                    size="icon-sm"
+                    aria-label="Last page"
+                    :disabled="!table.getCanNextPage()"
+                    @click="table.setPageIndex(table.getPageCount() - 1)"
+                  >
+                    <Icon name="lucide:chevrons-right" />
+                  </UiButton>
+                </div>
+              </div>
+            </template>
             <template #empty>
               <VerdantEmpty
                 class="border-0"

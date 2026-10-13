@@ -55,7 +55,11 @@
 
   const emits = defineEmits<{ "update:open": [open: boolean] }>();
 
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  // Verdant: the server cannot know the viewport, so only trust the media query once mounted.
+  // Otherwise a phone's first client render picks the mobile sheet and fails hydration.
+  const narrow = useMediaQuery("(max-width: 768px)");
+  const mounted = useMounted();
+  const isMobile = computed(() => mounted.value && narrow.value);
   const openMobile = ref(false);
 
   const initialOpen = computed(() => sidebarCookie.value ?? props.defaultOpen);

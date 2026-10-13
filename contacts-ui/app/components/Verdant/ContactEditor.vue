@@ -404,7 +404,9 @@
             </div>
             <p v-else class="text-sm text-muted-foreground">
               You haven't created any groups yet.
-              <NuxtLink to="/groups" class="text-primary underline-offset-4 hover:underline"
+              <NuxtLink
+                to="/groups"
+                class="text-primary underline underline-offset-4 hover:no-underline"
                 >Create one</NuxtLink
               >.
             </p>

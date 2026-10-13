@@ -127,7 +127,7 @@
         </header>
         <VerdantError :message="error" />
         <UiTabs :model-value="tab" @update:model-value="setTab">
-          <UiTabsList class="mb-6">
+          <UiTabsList class="mb-6 text-muted-foreground">
             <UiTabsTrigger value="overview">Overview</UiTabsTrigger>
             <UiTabsTrigger value="timeline">Timeline</UiTabsTrigger>
             <UiTabsTrigger value="follow-ups">

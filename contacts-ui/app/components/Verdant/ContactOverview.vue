@@ -64,7 +64,7 @@
             <Icon name="lucide:mail" class="size-4 text-muted-foreground" />
             <a
               :href="'mailto:' + item.value"
-              class="text-primary underline-offset-4 hover:underline"
+              class="text-primary underline underline-offset-4 hover:no-underline"
               >{{ item.value }}</a
             >
             <UiBadge variant="outline" class="capitalize">{{ item.label }}</UiBadge>
@@ -76,7 +76,7 @@
             <Icon name="lucide:phone" class="size-4 text-muted-foreground" />
             <a
               :href="'tel:' + item.value.replace(/[^\d+]/g, '')"
-              class="text-primary underline-offset-4 hover:underline"
+              class="text-primary underline underline-offset-4 hover:no-underline"
               >{{ item.value }}</a
             >
             <UiBadge variant="outline" class="capitalize">{{ item.label }}</UiBadge>
@@ -103,7 +103,7 @@
               :href="item"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-primary underline-offset-4 hover:underline"
+              class="text-primary underline underline-offset-4 hover:no-underline"
               >{{ item }}</a
             >
           </li>
@@ -159,7 +159,7 @@
             <NuxtLink
               v-if="referrer"
               :to="'/contacts/' + referrer.id"
-              class="text-primary underline-offset-4 hover:underline"
+              class="text-primary underline underline-offset-4 hover:no-underline"
               >{{ nameOf(referrer) }}</NuxtLink
             >
             <template v-else>—</template>
@@ -169,7 +169,7 @@
             <template v-for="(item, index) in referred" :key="item.id">
               <NuxtLink
                 :to="'/contacts/' + item.id"
-                class="text-primary underline-offset-4 hover:underline"
+                class="text-primary underline underline-offset-4 hover:no-underline"
                 >{{ nameOf(item) }}</NuxtLink
               ><template v-if="index < referred.length - 1">, </template>
             </template>

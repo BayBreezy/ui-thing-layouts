@@ -13,8 +13,10 @@
     const id = String(route.params.id || "");
     if (!id) return "";
     if (id === "new") return "New";
-    if (route.path.startsWith("/contacts/"))
-      return nameOf(state.value?.contacts.find((item) => item.id === id) ?? ({} as never));
+    if (route.path.startsWith("/contacts/")) {
+      const contact = state.value?.contacts.find((item) => item.id === id);
+      return contact ? nameOf(contact) : "Contact";
+    }
     if (route.path.startsWith("/groups/"))
       return state.value?.groups.find((item) => item.id === id)?.name ?? "Group";
     return "Details";

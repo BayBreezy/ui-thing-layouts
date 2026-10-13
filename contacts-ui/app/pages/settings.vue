@@ -97,7 +97,7 @@
       description="Your profile, how Verdant looks, and what you do with your data."
     />
     <UiTabs :model-value="tab" @update:model-value="setTab">
-      <UiTabsList class="mb-6">
+      <UiTabsList class="mb-6 text-muted-foreground">
         <UiTabsTrigger value="profile">Profile</UiTabsTrigger>
         <UiTabsTrigger value="preferences">Preferences</UiTabsTrigger>
         <UiTabsTrigger value="labels">Labels</UiTabsTrigger>
@@ -239,6 +239,7 @@
                     variant="ghost"
                     size="sm"
                     :aria-label="`Rename ${item.label}`"
+                    :disabled="pending"
                     @click="
                       renaming = item.label;
                       renameTo = item.label;
@@ -250,6 +251,7 @@
                     variant="ghost"
                     size="sm"
                     :aria-label="`Remove ${item.label}`"
+                    :disabled="pending"
                     @click="removeLabel(item.label)"
                   >
                     Remove

@@ -94,7 +94,7 @@
         <NuxtLink
           v-if="action === 'login'"
           to="/forgot-password"
-          class="block text-right text-sm text-primary underline-offset-4 hover:underline"
+          class="block text-right text-sm text-primary underline underline-offset-4 hover:no-underline"
           >Forgot password?</NuxtLink
         >
         <VerdantError :message="error" />
@@ -113,13 +113,17 @@
     </form>
     <p v-if="action === 'login'" class="mt-6 text-center text-sm text-muted-foreground">
       New to Verdant?
-      <NuxtLink to="/signup" class="font-medium text-primary underline-offset-4 hover:underline"
+      <NuxtLink
+        to="/signup"
+        class="font-medium text-primary underline underline-offset-4 hover:no-underline"
         >Try demo signup</NuxtLink
       >
     </p>
     <p v-else class="mt-6 text-center text-sm text-muted-foreground">
       Already have a demo identity?
-      <NuxtLink to="/login" class="font-medium text-primary underline-offset-4 hover:underline"
+      <NuxtLink
+        to="/login"
+        class="font-medium text-primary underline underline-offset-4 hover:no-underline"
         >Back to sign in</NuxtLink
       >
     </p>

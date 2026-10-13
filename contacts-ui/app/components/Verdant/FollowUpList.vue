@@ -42,7 +42,7 @@
             <template v-if="showContact && contactFor(item.contactId)">
               <NuxtLink
                 :to="'/contacts/' + item.contactId"
-                class="text-foreground underline-offset-4 hover:underline"
+                class="text-foreground underline underline-offset-4 hover:text-primary"
                 >{{ nameOf(contactFor(item.contactId)!) }}</NuxtLink
               >
               ·
