@@ -1,21 +1,50 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: "2026-10-11",
   devtools: { enabled: true },
-  future: { compatibilityVersion: 4 },
   modules: [
-    "@nuxt/eslint",
-    "@nuxt/fonts",
     "@nuxt/icon",
-    "@nuxtjs/tailwindcss",
+    "@nuxt/fonts",
+    "@nuxtjs/color-mode",
     "@vueuse/nuxt",
     "@vee-validate/nuxt",
-    "@morev/vue-transitions/nuxt",
-    "@hypernym/nuxt-gsap",
+    "vue-sonner/nuxt",
   ],
-  gsap: { provide: false, composables: true },
-  tailwindcss: { exposeConfig: true, editorSupport: true },
-  icon: { clientBundle: { scan: true, sizeLimitKb: 0 } },
+  css: ["~/assets/css/tailwind.css", "~/assets/css/verdant.css"],
+  fonts: {
+    provider: "local",
+    processCSSVariables: false,
+    families: [
+      {
+        name: "Inter",
+        src: "/fonts/InterVariable.woff2",
+        weight: "100 900",
+        style: "normal",
+        global: true,
+      },
+      // Nuxt Fonts 1.0 treats Tailwind variable references as family names.
+      // Inter is injected globally above; leave these references untouched.
+      { name: "var(--font-sans)", provider: "none" },
+      { name: "var(--font-mono)", provider: "none" },
+    ],
+  },
+  vite: {
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ["@tanstack/vue-table", "reka-ui", "tailwind-variants", "vue3-apexcharts", "yup"],
+    },
+  },
+  colorMode: {
+    classSuffix: "",
+    preference: "system",
+    fallback: "light",
+    storageKey: "verdant-color-mode",
+  },
+  icon: {
+    clientBundle: { scan: true, sizeLimitKb: 256 },
+    serverBundle: { collections: ["lucide"] },
+  },
+  runtimeConfig: { public: { siteUrl: "https://green-contact-ui.behonbaker.com" } },
   imports: {
     imports: [
       { from: "tailwind-variants", name: "tv" },
@@ -23,21 +52,16 @@ export default defineNuxtConfig({
       { from: "vue-sonner", name: "toast", as: "useSonner" },
     ],
   },
-
+  typescript: { strict: true },
   app: {
     head: {
-      script: [
-        {
-          src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
-          defer: true,
-        },
-        {
-          src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
-          defer: true,
-        },
+      htmlAttrs: { lang: "en" },
+      link: [
+        // The .ico covers Safari and older crawlers; browsers that understand SVG pick the SVG.
+        { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
+        { rel: "icon", type: "image/svg+xml", href: "/verdant.svg" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       ],
     },
   },
-
-  build: { transpile: ["vue-sonner"] },
 });
