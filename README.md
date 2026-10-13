@@ -17,7 +17,13 @@ A collection of layouts created with the [UI Thing](https://uithing.com/getting-
 
 ---
 
-- [Green Contact UI](https://green-contact-ui.behonbaker.com) - A contact manager dashboard ui.
+- [Verdant — Contact manager](contacts-ui/) - An interactive Nuxt contact manager with searchable contacts, groups, follow-ups, duplicate merging, CSV/vCard import and export, and local demo APIs. [Live site](https://green-contact-ui.behonbaker.com) (deployment managed separately).
+  <br>
+
+<a href="https://green-contact-ui.behonbaker.com"><img src="contacts-ui/public/screenshots/contacts.png" alt="Verdant contact manager with a filterable contacts table and groups sidebar" width="720"></a>
+
+---
+
 - [Launchpad — Campaign workspace](campaign-ui/) - An interactive Nuxt marketing workspace with campaigns, leads, team chat, editable briefs, analytics, and local demo APIs. [Live site](https://campaigns-ui.behonbaker.com) (deployment managed separately).
 
 <a href="https://campaigns-ui.behonbaker.com"><img src="campaign-ui/public/screenshots/workspace-light.png" alt="Launchpad marketing workspace with campaign results and team context" width="720"></a>
