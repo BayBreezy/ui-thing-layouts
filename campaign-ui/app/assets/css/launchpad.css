@@ -1,0 +1,70 @@
+/* App-level extras that are not part of the UI Thing theme. Design tokens live in tailwind.css. */
+@reference "./tailwind.css";
+
+@layer base {
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer components {
+  /** Standard page container used by every route. */
+  .page-shell {
+    @apply mx-auto w-full max-w-6xl p-4 md:p-6 lg:p-8;
+  }
+
+  /** Typography for rendered markdown (documents and guides). */
+  .launchpad-prose {
+    @apply text-sm leading-7 break-words;
+  }
+  .launchpad-prose h1,
+  .launchpad-prose h2,
+  .launchpad-prose h3 {
+    @apply mt-6 mb-3 font-semibold tracking-tight text-foreground;
+  }
+  .launchpad-prose h1 {
+    @apply text-2xl;
+  }
+  .launchpad-prose h2 {
+    @apply text-xl;
+  }
+  .launchpad-prose h3 {
+    @apply text-lg;
+  }
+  .launchpad-prose p {
+    @apply my-3;
+  }
+  .launchpad-prose :first-child {
+    @apply mt-0;
+  }
+  .launchpad-prose ol {
+    @apply my-4 list-decimal space-y-2 pl-5;
+  }
+  .launchpad-prose ul {
+    @apply my-4 list-disc space-y-2 pl-5;
+  }
+  .launchpad-prose pre {
+    @apply my-5 max-w-full overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-xs leading-6;
+  }
+  .launchpad-prose code:not(pre code) {
+    @apply rounded bg-muted px-1.5 py-0.5 font-mono text-xs;
+  }
+  .launchpad-prose a {
+    @apply text-primary underline underline-offset-4;
+  }
+  /* MDC wraps headings in self-links; they should read as headings, not links. */
+  .launchpad-prose :is(h1, h2, h3, h4, h5, h6) a {
+    @apply text-inherit no-underline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

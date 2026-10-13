@@ -1,40 +1,35 @@
-<template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtLoadingIndicator />
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
-</template>
-
-<script lang="ts" setup>
-  const title = "Campaign Management UI - Manage and Optimize Your Campaigns | UI Thing";
-  const description =
-    "Streamline your marketing efforts with this powerful Campaign Management UI. Create, track, and optimize your campaigns with ease using a modern and responsive interface.";
-  const image = "/cover.jpeg";
-
-  useHead({
-    htmlAttrs: { lang: "en" },
-    link: [{ rel: "icon", type: "image/png", href: "/icon.png" }],
+<script setup lang="ts">
+  const { state, ready } = useDemo();
+  const { data, error, refresh } = await useAsyncData("launchpad-bootstrap", () =>
+    $fetch("/api/demo/bootstrap")
+  );
+  if (!state.value && data.value) state.value = data.value;
+  watch(data, (value) => {
+    if (value && !state.value) state.value = value;
   });
-
-  useSeoMeta({
-    title,
-    description,
-    author: "UI Thing",
-    keywords:
-      "campaign management, marketing dashboard, campaign tracking, campaign UI, campaign optimizer, Vue campaign UI, React campaign UI",
-    robots: "index, follow",
-    ogTitle: title,
-    ogDescription: description,
-    ogType: "website",
-    ogImage: image,
-    ogUrl: import.meta.env.PUBLIC_URL || "http://localhost:3000",
-    twitterTitle: title,
-    twitterDescription: description,
-    twitterCard: "summary_large_image",
-    twitterImage: image,
-    themeColor: "#09090b",
-  });
+  usePageSeo({ title: "A little momentum for your next big idea" });
 </script>
+<template>
+  <UiTooltipProvider :delay-duration="200">
+    <NuxtLoadingIndicator color="var(--primary)" />
+    <NuxtAnnouncer />
+    <div v-if="error && !state" class="flex min-h-screen items-center justify-center p-6">
+      <UiCard class="max-w-md text-center">
+        <UiCardHeader>
+          <LaunchpadLogo class="mx-auto mb-4" />
+          <UiCardTitle as="h1" class="text-xl">Let's try that again</UiCardTitle>
+          <UiCardDescription>
+            We couldn't load your workspace. Check your connection and retry.
+          </UiCardDescription>
+        </UiCardHeader>
+        <UiCardFooter class="justify-center">
+          <UiButton @click="refresh()">Retry loading workspace</UiButton>
+        </UiCardFooter>
+      </UiCard>
+    </div>
+    <div v-else :data-demo-ready="ready" class="contents">
+      <NuxtLayout><NuxtPage /></NuxtLayout>
+    </div>
+    <UiSonner position="bottom-right" />
+  </UiTooltipProvider>
+</template>
