@@ -18,7 +18,9 @@ A collection of layouts created with the [UI Thing](https://uithing.com/getting-
 ---
 
 - [Green Contact UI](https://green-contact-ui.behonbaker.com) - A contact manager dashboard ui.
-- [Campaigns UI](https://campaigns-ui.behonbaker.com) - A responsive campaigns dashboard ui.
+- [Launchpad — Campaign workspace](campaign-ui/) - An interactive Nuxt marketing workspace with campaigns, leads, team chat, editable briefs, analytics, and local demo APIs. [Live site](https://campaigns-ui.behonbaker.com) (deployment managed separately).
+
+<a href="https://campaigns-ui.behonbaker.com"><img src="campaign-ui/public/screenshots/workspace-light.png" alt="Launchpad marketing workspace with campaign results and team context" width="720"></a>
 - [Onboarding Steps UI](https://onboarding-steps-ui.behonbaker.com) - A responsive onboarding steps ui.
 - [Site Overview UI](https://site-overview-ui.behonbaker.com) - An analytics site overview ui.
 - [Dr. Appointment UI](https://dr-appointment-ui.behonbaker.com) - Dashboard ui for a doctor's appointment app.
