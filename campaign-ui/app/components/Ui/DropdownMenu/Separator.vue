@@ -1,15 +1,21 @@
 <template>
-  <DropdownMenuSeparator :class="styles({ class: props.class })" v-bind="forwarded" />
+  <DropdownMenuSeparator
+    data-slot="dropdown-menu-separator"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+    v-bind="forwarded"
+  />
 </template>
 
 <script lang="ts" setup>
-  import { DropdownMenuSeparator } from "radix-vue";
-  import type { DropdownMenuSeparatorProps } from "radix-vue";
+  import { DropdownMenuSeparator } from "reka-ui";
+  import type { DropdownMenuSeparatorProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     DropdownMenuSeparatorProps & {
-      /** Custom class(es) to add to the parent */
-      class?: any;
+      /** Custom class(es) to add to the parent. */
+      class?: HTMLAttributes["class"];
     }
   >();
   const forwarded = reactiveOmit(props, "class");

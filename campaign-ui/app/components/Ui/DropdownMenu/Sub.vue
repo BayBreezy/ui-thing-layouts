@@ -1,12 +1,12 @@
 <template>
-  <DropdownMenuSub v-bind="forwarded">
+  <DropdownMenuSub data-slot="dropdown-menu-sub" v-bind="forwarded">
     <slot />
   </DropdownMenuSub>
 </template>
 
 <script lang="ts" setup>
-  import { DropdownMenuSub, useForwardPropsEmits } from "radix-vue";
-  import type { DropdownMenuSubEmits, DropdownMenuSubProps } from "radix-vue";
+  import { DropdownMenuSub, useForwardPropsEmits } from "reka-ui";
+  import type { DropdownMenuSubEmits, DropdownMenuSubProps } from "reka-ui";
 
   const props = defineProps<DropdownMenuSubProps>();
   const emits = defineEmits<DropdownMenuSubEmits>();

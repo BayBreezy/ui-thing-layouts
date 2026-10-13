@@ -1,12 +1,12 @@
 <template>
-  <TooltipPortal v-bind="props">
+  <TooltipPortal data-slot="tooltip-portal" v-bind="props">
     <slot />
   </TooltipPortal>
 </template>
 
 <script lang="ts" setup>
-  import { TooltipPortal } from "radix-vue";
-  import type { TooltipPortalProps } from "radix-vue";
+  import { TooltipPortal } from "reka-ui";
+  import type { TooltipPortalProps } from "reka-ui";
 
   const props = defineProps<TooltipPortalProps>();
 </script>

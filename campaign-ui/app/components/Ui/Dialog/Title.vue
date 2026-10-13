@@ -1,23 +1,29 @@
 <template>
-  <DialogTitle :class="styles({ class: props.class })" v-bind="forwarded">
+  <DialogTitle
+    data-slot="dialog-title"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+    v-bind="forwarded"
+  >
     <slot>{{ title }}</slot>
   </DialogTitle>
 </template>
 
 <script lang="ts" setup>
-  import { DialogTitle } from "radix-vue";
-  import type { DialogTitleProps } from "radix-vue";
+  import { DialogTitle } from "reka-ui";
+  import type { DialogTitleProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     DialogTitleProps & {
-      /** Custom class(es) to add to the parent */
-      class?: any;
-      /** The title text */
+      /** Custom class(es) to add to the parent. */
+      class?: HTMLAttributes["class"];
+      /** The title text. */
       title?: string;
     }
   >();
   const forwarded = reactiveOmit(props, "class", "title");
   const styles = tv({
-    base: "text-xl font-semibold leading-none tracking-tight md:text-lg",
+    base: "text-lg leading-none font-semibold tracking-tight",
   });
 </script>

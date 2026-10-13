@@ -1,35 +1,49 @@
 <template>
-  <DropdownMenuItem v-bind="forwarded" :class="styles({ inset, class: props.class })">
+  <DropdownMenuItem
+    data-slot="dropdown-menu-item"
+    v-bind="forwarded"
+    :data-inset="inset"
+    :data-variant="variant"
+    :class="styles({ inset, class: normalizeClass(props.class) || undefined })"
+  >
     <slot>
       <slot name="icon">
-        <Icon v-if="icon" :name="icon" class="h-4 w-4" />
+        <Icon v-if="icon" :name="icon" class="size-4" />
       </slot>
       <slot name="title">
         <span v-if="title">{{ title }}</span>
       </slot>
     </slot>
     <slot name="shortcut">
-      <UiDropdownMenuShortcut v-if="shortcut">{{ shortcut }}</UiDropdownMenuShortcut>
+      <UiDropdownMenuShortcut v-if="shortcut" :variant>{{ shortcut }}</UiDropdownMenuShortcut>
     </slot>
   </DropdownMenuItem>
 </template>
 
 <script lang="ts" setup>
-  import { DropdownMenuItem, useForwardPropsEmits } from "radix-vue";
-  import type { DropdownMenuItemEmits, DropdownMenuItemProps } from "radix-vue";
+  import { DropdownMenuItem, useForwardPropsEmits } from "reka-ui";
+  import type { DropdownMenuItemEmits, DropdownMenuItemProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     DropdownMenuItemProps & {
-      /** Custom class(es) to add to the parent */
-      class?: any;
-      /** Whether to inset the content */
+      /** Custom class(es) to add to the parent. */
+      class?: HTMLAttributes["class"];
+      /** Whether to inset the content. */
       inset?: boolean;
-      /** The shorttcut text to display */
+      /** The shortcut text to display. */
       shortcut?: string;
-      /** The title text to display */
+      /** The title text to display. */
       title?: string;
-      /** The icon to display */
+      /** The icon to display. */
       icon?: string;
+      /**
+       * The variant of the item.
+       *
+       * @default "default"
+       */
+      variant?: "default" | "destructive";
     }
   >();
 
@@ -40,7 +54,7 @@
   );
 
   const styles = tv({
-    base: "relative flex cursor-default select-none items-center gap-3 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+    base: "relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[inset=true]:pl-8 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:data-highlighted:bg-destructive/10 data-[variant=destructive]:data-highlighted:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 dark:data-[variant=destructive]:data-highlighted:bg-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground data-[variant=destructive]:*:[svg]:text-destructive!",
     variants: {
       inset: {
         true: "pl-8",

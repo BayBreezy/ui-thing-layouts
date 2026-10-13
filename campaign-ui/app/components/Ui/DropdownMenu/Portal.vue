@@ -1,12 +1,12 @@
 <template>
-  <DropdownMenuPortal v-bind="props">
+  <DropdownMenuPortal data-slot="dropdown-menu-portal" v-bind="props">
     <slot />
   </DropdownMenuPortal>
 </template>
 
 <script lang="ts" setup>
-  import { DropdownMenuPortal } from "radix-vue";
-  import type { DropdownMenuPortalProps } from "radix-vue";
+  import { DropdownMenuPortal } from "reka-ui";
+  import type { DropdownMenuPortalProps } from "reka-ui";
 
   const props = defineProps<DropdownMenuPortalProps>();
 </script>

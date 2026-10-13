@@ -1,7 +1,10 @@
 <template>
   <div
+    data-slot="sidebar-menu-skeleton"
     data-sidebar="menu-skeleton"
-    :class="sideBarMenuSkeletonStyles().wrapper({ class: props.class })"
+    :class="
+      sideBarMenuSkeletonStyles().wrapper({ class: normalizeClass(props.class) || undefined })
+    "
   >
     <UiSkeleton
       v-if="showIcon"
@@ -17,25 +20,22 @@
   </div>
 </template>
 <script lang="ts">
+  import { normalizeClass } from "vue";
   import type { HTMLAttributes } from "vue";
 
   export const sideBarMenuSkeletonStyles = tv({
     slots: {
       wrapper: "flex h-8 items-center gap-2 rounded-md px-2",
       skeleton1: "size-4 rounded-md",
-      skeleton2: "h-4 max-w-[--skeleton-width] flex-1",
+      skeleton2: "h-4 max-w-(--skeleton-width) flex-1",
     },
   });
 </script>
 <script setup lang="ts">
   const props = defineProps<{
-    /**
-     * Whether to show the icon skeleton.
-     */
+    /** Whether to show the icon skeleton. */
     showIcon?: boolean;
-    /**
-     * Additional classes to apply to the parent element.
-     */
+    /** Additional classes to apply to the parent element. */
     class?: HTMLAttributes["class"];
   }>();
 
