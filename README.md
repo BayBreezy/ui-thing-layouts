@@ -17,10 +17,10 @@ A collection of layouts created with the [UI Thing](https://uithing.com/getting-
 
 ---
 
-- [Verdant — Contact manager](contacts-ui/) - An interactive Nuxt contact manager with searchable contacts, groups, follow-ups, duplicate merging, CSV/vCard import and export, and local demo APIs. [Live site](https://green-contact-ui.behonbaker.com) (deployment managed separately).
+- [Verdant — Contact manager](contacts-ui/) - An interactive Nuxt contact manager with searchable contacts, groups, follow-ups, duplicate merging, CSV/vCard import and export, and local demo APIs. [Live site](https://verdant.behonbaker.com) (deployment managed separately).
   <br>
 
-<a href="https://green-contact-ui.behonbaker.com"><img src="contacts-ui/public/screenshots/contacts.png" alt="Verdant contact manager with a filterable contacts table and groups sidebar" width="720"></a>
+<a href="https://verdant.behonbaker.com"><img src="contacts-ui/public/screenshots/contacts.png" alt="Verdant contact manager with a filterable contacts table and groups sidebar" width="720"></a>
 
 ---
 

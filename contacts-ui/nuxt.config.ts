@@ -45,7 +45,7 @@ export default defineNuxtConfig({
     clientBundle: { scan: true, sizeLimitKb: 256 },
     serverBundle: { collections: ["lucide"] },
   },
-  runtimeConfig: { public: { siteUrl: "https://green-contact-ui.behonbaker.com" } },
+  runtimeConfig: { public: { siteUrl: "https://verdant.behonbaker.com" } },
   imports: {
     imports: [
       { from: "tailwind-variants", name: "tv" },

@@ -2,7 +2,7 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/BayBreezy/ui-thing-layouts/contacts-ui.yml?branch=main&label=CI)](https://github.com/BayBreezy/ui-thing-layouts/actions/workflows/contacts-ui.yml)
 [![MIT](https://img.shields.io/github/license/BayBreezy/ui-thing-layouts)](../LICENSE.md)
-[![Live site](https://img.shields.io/badge/site-green--contact--ui.behonbaker.com-047857)](https://green-contact-ui.behonbaker.com)
+[![Live site](https://img.shields.io/badge/site-verdant.behonbaker.com-047857)](https://verdant.behonbaker.com)
 [![Nuxt 4](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&logoColor=white)](https://nuxt.com)
 [![Tailwind 4](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![UI Thing](https://img.shields.io/badge/UI%20Thing-Reka%20UI-047857)](https://uithing.com)
@@ -13,7 +13,7 @@
 
 An interactive contact manager designed and built by [**Behon Baker**](https://behonbaker.com). Verdant takes the original Green Contact UI dashboard and turns it into a working address book: searchable and filterable contacts, groups, a follow-up planner, duplicate merging, CSV and vCard import/export, validated APIs, local persistence and accessible interactions.
 
-[![Verdant overview with follow-ups, birthdays and data health](public/screenshots/overview-light.png)](https://green-contact-ui.behonbaker.com)
+[![Verdant overview with follow-ups, birthdays and data health](public/screenshots/overview-light.png)](https://verdant.behonbaker.com)
 
 The existing live site is managed separately; this source update does not publish it. Other applications in the repository remain independent.
 
