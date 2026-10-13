@@ -1,0 +1,50 @@
+name: Mendly Appointment Workspace
+on:
+  push:
+    paths: ["dr-appointment-ui/**", ".github/workflows/dr-appointment-ui.yml"]
+  pull_request:
+    paths: ["dr-appointment-ui/**", ".github/workflows/dr-appointment-ui.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dr-appointment-ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.23.3"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.2"
+      - run: bun install --frozen-lockfile
+      - run: bun run format:check
+      - run: bun run lint
+      - run: bun run typecheck
+      - run: bun run test
+      - run: bunx playwright install --with-deps chromium
+      - run: bun run test:e2e
+      - run: bun run build
+      - name: Ensure Faker is server-only
+        run: |
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          markers = ("faker-js", "faker.seed", "FakerError")
+          leaks = [str(path) for path in Path(".output/public/_nuxt").glob("*.js")
+                   if any(marker in path.read_text() for marker in markers)]
+          assert not leaks, f"Faker found in client output: {leaks}"
+          PYTHON
+      - name: Verify Netlify SSR and API output
+        run: NITRO_PRESET=netlify bun run build
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: mendly-browser-results
+          path: |
+            dr-appointment-ui/playwright-report
+            dr-appointment-ui/test-results
+          retention-days: 7
