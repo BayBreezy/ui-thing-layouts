@@ -13,7 +13,7 @@
       <div class="relative mt-auto max-w-md pb-16">
         <UiBadge variant="outline" class="mb-6">Relationships, tended to</UiBadge>
         <h2 class="text-3xl font-semibold tracking-tight">
-          Everyone you know.<br />Right where you left them.
+          Everyone you know.<br />In one calm place.
         </h2>
         <p class="mt-4 text-sm leading-6 text-muted-foreground">
           Keep your contacts, conversations and follow-ups together in one calm, green workspace.
