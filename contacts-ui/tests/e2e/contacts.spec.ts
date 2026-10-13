@@ -245,6 +245,18 @@ test("follow-ups can be added, completed, snoozed and deleted", async ({ page })
   await page.getByRole("button", { name: "New follow-up" }).click();
   const dialog = page.getByRole("dialog", { name: "New follow-up" });
   await dialog.getByLabel("What do you need to do?").fill("Send the sample files");
+  // Nobody is preselected: the person has to be chosen from a searchable list.
+  await dialog.getByRole("button", { name: "Add follow-up" }).click();
+  await expect(dialog.getByText("Choose who this follow-up is for")).toBeVisible();
+  const person = seed.contacts.find((c) => !c.archived && c.firstName && c.lastName)!;
+  const picker = dialog.getByRole("combobox", { name: "Contact" });
+  await picker.fill(person.lastName);
+  await page
+    .getByRole("listbox")
+    .getByRole("option", { name: new RegExp(person.firstName) })
+    .first()
+    .click();
+  await expect(picker).toHaveValue(displayName(person));
   await dialog.getByRole("button", { name: "Add follow-up" }).click();
   await expect(page.getByText("Send the sample files")).toBeVisible();
   await page.getByRole("checkbox", { name: /Mark “Send the sample files” as done/ }).click();
@@ -258,6 +270,41 @@ test("follow-ups can be added, completed, snoozed and deleted", async ({ page })
   await expect(page.getByText("Pushed back a week").first()).toBeVisible();
   await page.getByRole("button", { name: /Delete “Send the sample files”/ }).click();
   await expect(page.getByText("Send the sample files")).toHaveCount(0);
+});
+
+test("long contact lists are searched in a combobox, for introductions and group members", async ({
+  page,
+}) => {
+  const [first, second] = seed.contacts.filter((c) => !c.archived && c.firstName && c.lastName);
+  await open(page, `/contacts/${first!.id}?tab=edit`);
+  const introducer = page.getByRole("combobox", { name: "Introduced by" });
+  await introducer.fill(second!.lastName);
+  await page
+    .getByRole("listbox")
+    .getByRole("option", { name: new RegExp(second!.firstName) })
+    .first()
+    .click();
+  await expect(introducer).toHaveValue(displayName(second!));
+  await page.getByRole("button", { name: "Clear selection" }).click();
+  await expect(introducer).toHaveValue("");
+  await page.getByRole("button", { name: "Show all people" }).click();
+  await expect(page.getByRole("listbox").getByRole("option").first()).toBeVisible();
+  expect(await page.getByRole("listbox").getByRole("option").count()).toBeGreaterThan(20);
+  await page.keyboard.press("Escape");
+
+  await open(page, "/groups/group-7");
+  const outsider = seed.contacts.find((c) => !c.archived && !c.groupIds.includes("group-7"))!;
+  await page.getByRole("combobox", { name: "Add someone to this group" }).fill(outsider.lastName);
+  await page
+    .getByRole("listbox")
+    .getByRole("option", { name: new RegExp(outsider.firstName) })
+    .first()
+    .click();
+  await page.getByRole("button", { name: "Add to group" }).click();
+  await expect(page.getByText("Added to group").first()).toBeVisible();
+  await expect(
+    page.getByRole("table").getByRole("link", { name: displayName(outsider) })
+  ).toBeVisible();
 });
 
 test("the command palette finds people and pages by keyboard", async ({ page }) => {

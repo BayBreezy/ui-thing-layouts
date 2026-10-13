@@ -178,12 +178,13 @@
           </div>
           <div class="space-y-2">
             <UiLabel :for="`${uid}-referrer`">Introduced by</UiLabel>
-            <UiNativeSelect :id="`${uid}-referrer`" v-model="form.referredById">
-              <option value="">Nobody in particular</option>
-              <option v-for="item in referrers" :key="item.id" :value="item.id">
-                {{ nameOf(item) }}
-              </option>
-            </UiNativeSelect>
+            <VerdantContactPicker
+              :id="`${uid}-referrer`"
+              v-model="form.referredById"
+              :contacts="referrers"
+              placeholder="Search for someone…"
+              clearable
+            />
           </div>
           <div class="flex items-center gap-3 @xl:col-span-2">
             <UiSwitch :id="`${uid}-fav`" v-model="form.favorite" />

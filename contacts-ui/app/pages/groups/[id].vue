@@ -77,12 +77,14 @@
         <div class="mb-6 flex flex-wrap items-end gap-3">
           <div class="space-y-2">
             <UiLabel for="add-member">Add someone to this group</UiLabel>
-            <UiNativeSelect id="add-member" v-model="addId" class="w-64">
-              <option value="">Choose a contact…</option>
-              <option v-for="item in candidates" :key="item.id" :value="item.id">
-                {{ nameOf(item) }}
-              </option>
-            </UiNativeSelect>
+            <div class="w-72">
+              <VerdantContactPicker
+                id="add-member"
+                v-model="addId"
+                :contacts="candidates"
+                placeholder="Search for a contact…"
+              />
+            </div>
           </div>
           <UiButton :disabled="!addId" @click="add">Add to group</UiButton>
         </div>

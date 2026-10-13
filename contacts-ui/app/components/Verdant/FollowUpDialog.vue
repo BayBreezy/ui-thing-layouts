@@ -16,13 +16,17 @@
   );
   watch(open, (value) => {
     if (value) {
-      form.value = newFollowUp(props.contactId || contacts.value[0]?.id || "");
+      form.value = newFollowUp(props.contactId ?? "");
       message.value = "";
       error.value = "";
     }
   });
   async function submit() {
     message.value = "";
+    if (!form.value.contactId) {
+      message.value = "Choose who this follow-up is for";
+      return;
+    }
     try {
       await followUpSchema.validate(form.value, { abortEarly: true });
     } catch (cause) {
@@ -50,11 +54,12 @@
         </div>
         <div v-if="!contactId" class="space-y-2">
           <UiLabel :for="`${uid}-contact`">Contact</UiLabel>
-          <UiNativeSelect :id="`${uid}-contact`" v-model="form.contactId">
-            <option v-for="item in contacts" :key="item.id" :value="item.id">
-              {{ nameOf(item) }}
-            </option>
-          </UiNativeSelect>
+          <VerdantContactPicker
+            :id="`${uid}-contact`"
+            v-model="form.contactId"
+            :contacts="contacts"
+            placeholder="Search for a contact…"
+          />
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-2">
