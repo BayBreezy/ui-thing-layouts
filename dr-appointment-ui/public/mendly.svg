@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-label="Mendly">
+  <rect width="40" height="40" rx="10" fill="#d6153f"/>
+  <rect x="9" y="12" width="22" height="19" rx="4.5" fill="#fff"/>
+  <path d="M9.5 18h21" stroke="#d6153f" stroke-opacity=".3" stroke-width="1.5"/>
+  <rect x="13.5" y="8" width="3" height="6.5" rx="1.5" fill="#fff"/>
+  <rect x="23.5" y="8" width="3" height="6.5" rx="1.5" fill="#fff"/>
+  <path d="M20 21.4v6.2M16.9 24.5h6.2" stroke="#d6153f" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
