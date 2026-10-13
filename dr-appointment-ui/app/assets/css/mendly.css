@@ -1,0 +1,35 @@
+/* App-level extras that are not part of the UI Thing theme. Design tokens live in tailwind.css. */
+@reference "./tailwind.css";
+
+@layer base {
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer components {
+  /** Standard page container used by every staff route. */
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl p-4 md:p-6 lg:p-8;
+  }
+  /** Avatars get a stable tint from the person's hue and flip lightness for dark mode. */
+  .person-avatar {
+    background-color: oklch(0.93 0.05 var(--hue));
+    color: oklch(0.33 0.08 var(--hue));
+  }
+  .dark .person-avatar {
+    background-color: oklch(0.34 0.07 var(--hue));
+    color: oklch(0.92 0.05 var(--hue));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

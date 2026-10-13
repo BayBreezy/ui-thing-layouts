@@ -1,19 +1,29 @@
 <template>
-  <ComboboxSeparator :as-child="asChild" :class="styles({ class: props.class })">
+  <Separator
+    v-bind="forwarded"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+    data-slot="command-separator"
+    cmdk-separator
+  >
     <slot />
-  </ComboboxSeparator>
+  </Separator>
 </template>
 
-<script lang="ts" setup>
-  import { ComboboxSeparator } from "radix-vue";
-  import type { ComboboxSeparatorProps } from "radix-vue";
+<script setup lang="ts">
+  import { reactiveOmit } from "@vueuse/core";
+  import { Separator } from "reka-ui";
+  import type { SeparatorProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
-    ComboboxSeparatorProps & {
-      /**Custom class(es) to add to the element */
-      class?: any;
+    SeparatorProps & {
+      /** Custom class(es) to add to the element. */
+      class?: HTMLAttributes["class"];
     }
   >();
+
+  const forwarded = reactiveOmit(props, "class");
   const styles = tv({
     base: "-mx-1 h-px bg-border",
   });

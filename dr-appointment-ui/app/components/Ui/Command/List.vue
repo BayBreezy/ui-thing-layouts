@@ -1,26 +1,33 @@
 <template>
-  <ComboboxContent v-bind="forwarded" :class="styles({ class: props.class })">
-    <slot />
-  </ComboboxContent>
+  <ListboxContent
+    data-slot="command-list"
+    v-bind="forwarded"
+    cmdk-list
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+  >
+    <div role="presentation">
+      <slot />
+    </div>
+  </ListboxContent>
 </template>
 
-<script lang="ts" setup>
-  import { ComboboxContent, useForwardPropsEmits } from "radix-vue";
-  import type { ComboboxContentEmits, ComboboxContentProps } from "radix-vue";
-
-  defineOptions({ inheritAttrs: false });
+<script setup lang="ts">
+  import { reactiveOmit } from "@vueuse/core";
+  import { ListboxContent, useForwardProps } from "reka-ui";
+  import type { ListboxContentProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
-    ComboboxContentProps & {
-      /**Custom class(es) to add to the element */
-      class?: any;
+    ListboxContentProps & {
+      /** Custom class(es) to add to the element. */
+      class?: HTMLAttributes["class"];
     }
   >();
 
-  const emits = defineEmits<ComboboxContentEmits>();
-  const forwarded = useForwardPropsEmits(reactiveOmit(props, "class"), emits);
+  const forwarded = useForwardProps(reactiveOmit(props, "class"));
 
   const styles = tv({
-    base: "max-h-[300px] overflow-y-auto overflow-x-hidden",
+    base: "no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
   });
 </script>

@@ -1,17 +1,26 @@
 <template>
-  <DropdownMenuLabel :class="styles({ inset, class: props.class })" v-bind="forwarded">
+  <DropdownMenuLabel
+    data-slot="dropdown-menu-label"
+    :class="styles({ inset, class: normalizeClass(props.class) || undefined })"
+    v-bind="forwarded"
+  >
     <slot>{{ label }}</slot>
   </DropdownMenuLabel>
 </template>
 
 <script lang="ts" setup>
-  import { DropdownMenuLabel } from "radix-vue";
-  import type { DropdownMenuLabelProps } from "radix-vue";
+  import { DropdownMenuLabel } from "reka-ui";
+  import type { DropdownMenuLabelProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     DropdownMenuLabelProps & {
-      class?: any;
+      /** Custom class(es) to add to the parent. */
+      class?: HTMLAttributes["class"];
+      /** Whether to inset the content. */
       inset?: boolean;
+      /** The label text to display. */
       label?: string;
     }
   >();

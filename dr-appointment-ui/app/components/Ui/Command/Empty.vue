@@ -1,20 +1,31 @@
 <template>
-  <ComboboxEmpty :class="styles({ class: props.class })" v-bind="forwarded">
+  <Primitive
+    v-if="isRender"
+    v-bind="forwarded"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+    data-slot="command-empty"
+    cmdk-empty
+  >
     <slot />
-  </ComboboxEmpty>
+  </Primitive>
 </template>
 
-<script lang="ts" setup>
-  import { ComboboxEmpty } from "radix-vue";
-  import type { ComboboxEmptyProps } from "radix-vue";
+<script setup lang="ts">
+  import { reactiveOmit } from "@vueuse/core";
+  import { Primitive } from "reka-ui";
+  import type { PrimitiveProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
-  const props = defineProps<
-    ComboboxEmptyProps & {
-      /**Custom class(es) to add to the element */
-      class?: any;
-    }
-  >();
+  import { useCommand } from "./Command.vue";
+
+  const props = defineProps<PrimitiveProps & { class?: HTMLAttributes["class"] }>();
+
   const forwarded = reactiveOmit(props, "class");
+
+  const { filterState } = useCommand();
+  const isRender = computed(() => !!filterState.search && filterState.filtered.count === 0);
+
   const styles = tv({
     base: "py-6 text-center text-sm",
   });
