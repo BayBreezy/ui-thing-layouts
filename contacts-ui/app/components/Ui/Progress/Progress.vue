@@ -1,5 +1,9 @@
 <template>
-  <ProgressRoot v-bind="{ ...forwarded, ...$attrs }" :class="styles({ class: props.class })">
+  <ProgressRoot
+    data-slot="progress"
+    v-bind="{ ...forwarded, ...$attrs }"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+  >
     <slot>
       <UiProgressIndicator
         :style="{ transform: `translateX(-${100 - ((modelValue || 0) / max) * 100}%)` }"
@@ -9,15 +13,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { ProgressRoot, useForwardPropsEmits } from "radix-vue";
-  import type { ProgressRootEmits, ProgressRootProps } from "radix-vue";
+  import { ProgressRoot, useForwardPropsEmits } from "reka-ui";
+  import type { ProgressRootEmits, ProgressRootProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   defineOptions({ inheritAttrs: false });
   const props = withDefaults(
     defineProps<
       ProgressRootProps & {
-        /** Custom class(es) to add to the parent */
-        class?: any;
+        /** Custom class(es) to add to the parent. */
+        class?: HTMLAttributes["class"];
       }
     >(),
     {
@@ -30,6 +36,6 @@
   const forwarded = useForwardPropsEmits(reactiveOmit(props, "class"), emits);
 
   const styles = tv({
-    base: "relative h-3 w-full overflow-hidden rounded-full bg-secondary",
+    base: "relative h-2 w-full overflow-hidden rounded-full bg-primary/20",
   });
 </script>

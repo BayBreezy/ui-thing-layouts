@@ -1,7 +1,7 @@
 <template>
-  <PaginationEllipsis v-bind="forwarded">
+  <PaginationEllipsis data-slot="pagination-ellipsis" v-bind="forwarded">
     <slot>
-      <div v-if="icon" class="inline-flex h-9 w-9 items-center justify-center hover:bg-transparent">
+      <div v-if="icon" class="flex size-9 items-center justify-center hover:bg-transparent">
         <Icon :name="icon" />
       </div>
     </slot>
@@ -10,12 +10,12 @@
 
 <script lang="ts" setup>
   import { reactiveOmit } from "@vueuse/core";
-  import { PaginationEllipsis } from "radix-vue";
-  import type { PaginationEllipsisProps } from "radix-vue";
+  import { PaginationEllipsis } from "reka-ui";
+  import type { PaginationEllipsisProps } from "reka-ui";
 
   const props = defineProps<
     PaginationEllipsisProps & {
-      /** Icon to show */
+      /** Icon to show. */
       icon?: string;
     }
   >();

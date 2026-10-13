@@ -1,12 +1,12 @@
 <template>
-  <DropdownMenuTrigger v-bind="props">
+  <DropdownMenuTrigger data-slot="dropdown-menu-trigger" v-bind="props">
     <slot />
   </DropdownMenuTrigger>
 </template>
 
 <script lang="ts" setup>
-  import { DropdownMenuTrigger } from "radix-vue";
-  import type { DropdownMenuTriggerProps } from "radix-vue";
+  import { DropdownMenuTrigger } from "reka-ui";
+  import type { DropdownMenuTriggerProps } from "reka-ui";
 
   const props = defineProps<DropdownMenuTriggerProps>();
 </script>

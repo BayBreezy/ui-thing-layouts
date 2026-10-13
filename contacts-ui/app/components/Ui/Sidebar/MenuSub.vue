@@ -1,10 +1,15 @@
 <template>
-  <ul data-sidebar="menu-badge" :class="sideBarMenuSubStyles({ class: props.class })">
+  <ul
+    data-slot="sidebar-menu-sub"
+    data-sidebar="menu-badge"
+    :class="sideBarMenuSubStyles({ class: normalizeClass(props.class) || undefined })"
+  >
     <slot />
   </ul>
 </template>
 
 <script lang="ts">
+  import { normalizeClass } from "vue";
   import type { HTMLAttributes } from "vue";
 
   export const sideBarMenuSubStyles = tv({
@@ -17,9 +22,7 @@
 
 <script setup lang="ts">
   const props = defineProps<{
-    /**
-     * Additional classes to apply to the parent element.
-     */
+    /** Additional classes to apply to the parent element. */
     class?: HTMLAttributes["class"];
   }>();
 </script>

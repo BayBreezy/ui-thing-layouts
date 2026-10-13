@@ -2,23 +2,25 @@
   <UiButton
     :title="label"
     data-sidebar="trigger"
+    data-slot="sidebar-trigger"
     variant="ghost"
     size="icon"
-    :class="sideBarTriggerStyles({ class: props.class })"
+    :class="sideBarTriggerStyles({ class: normalizeClass(props.class) || undefined })"
     @click="toggleSidebar"
   >
     <slot v-bind="{ state }">
-      <Icon v-if="icon" :name="icon" class="size-5" />
+      <Icon v-if="icon" :name="icon" />
       <span class="sr-only">{{ label }}</span>
     </slot>
   </UiButton>
 </template>
 
 <script lang="ts">
+  import { normalizeClass } from "vue";
   import type { HTMLAttributes } from "vue";
 
   export const sideBarTriggerStyles = tv({
-    base: "size-8 shrink-0 text-muted-foreground/60 hover:text-foreground",
+    base: "size-7",
   });
 </script>
 
@@ -27,21 +29,21 @@
     defineProps<{
       /**
        * The icon to display in the trigger.
-       * @default "ri:layout-left-line"
+       *
+       * @default "lucide:panel-left"
        */
       icon?: string;
-      /**
-       * Additional classes to apply to the parent element.
-       */
+      /** Additional classes to apply to the parent element. */
       class?: HTMLAttributes["class"];
       /**
        * The label for the trigger.
+       *
        * @default "Toggle Sidebar"
        */
       label?: string;
     }>(),
     {
-      icon: "ri:layout-left-line",
+      icon: "lucide:panel-left",
       label: "Toggle Sidebar",
     }
   );

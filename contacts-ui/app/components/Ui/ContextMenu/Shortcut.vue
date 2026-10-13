@@ -1,16 +1,24 @@
 <template>
-  <Primitive :as="as || 'span'" :as-child="asChild" :class="styles({ class: props.class })">
+  <Primitive
+    data-slot="context-menu-shortcut"
+    :as="as || 'span'"
+    :as-child="asChild"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+  >
     <slot />
   </Primitive>
 </template>
 
 <script lang="ts" setup>
-  import { Primitive } from "radix-vue";
-  import type { PrimitiveProps } from "radix-vue";
+  import { Primitive } from "reka-ui";
+  import type { PrimitiveProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     PrimitiveProps & {
-      class?: any;
+      /** The custom class(es) to add to the element. */
+      class?: HTMLAttributes["class"];
     }
   >();
 

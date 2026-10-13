@@ -1,26 +1,43 @@
 <template>
-  <DropdownMenuArrow v-bind="forwarded" :class="styles({ class: props.class })" />
+  <DropdownMenuArrow
+    data-slot="dropdown-menu-arrow"
+    v-bind="forwarded"
+    :class="
+      styles({
+        translucent: props.translucent,
+        class: normalizeClass(props.class) || undefined,
+      })
+    "
+  />
 </template>
 
 <script lang="ts" setup>
-  import { DropdownMenuArrow } from "radix-vue";
-  import type { DropdownMenuArrowProps } from "radix-vue";
+  import { DropdownMenuArrow } from "reka-ui";
+  import type { DropdownMenuArrowProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = withDefaults(
     defineProps<
       DropdownMenuArrowProps & {
-        /** Custom class(es) to add to the parent */
-        class?: any;
+        /** Custom class(es) to add to the parent. */
+        class?: HTMLAttributes["class"];
+        /** Whether to render the arrow with a translucent surface. */
+        translucent?: boolean;
       }
     >(),
     {
-      asChild: false,
-      width: 10,
-      height: 5,
+      width: 12,
+      height: 6,
     }
   );
-  const forwarded = reactiveOmit(props, "class");
+  const forwarded = reactiveOmit(props, "class", "translucent");
   const styles = tv({
-    base: "rotate-45 border bg-muted",
+    base: "fill-popover stroke-border",
+    variants: {
+      translucent: {
+        true: getTranslucentFloatingArrowClasses("popover"),
+      },
+    },
   });
 </script>

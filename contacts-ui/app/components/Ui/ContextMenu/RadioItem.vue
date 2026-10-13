@@ -1,9 +1,13 @@
 <template>
-  <ContextMenuRadioItem v-bind="forwarded" :class="styles({ class: props.class })">
-    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-primary">
+  <ContextMenuRadioItem
+    data-slot="context-menu-radio-item"
+    v-bind="forwarded"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+  >
+    <span class="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
       <UiContextMenuItemIndicator>
-        <Icon v-if="icon" :name="icon" class="h-4 w-4" />
-        <Icon v-else name="ph:circle-fill" class="h-2 w-2" />
+        <Icon v-if="icon" :name="icon" class="size-4" />
+        <Icon v-else name="ph:circle-fill" class="size-2" />
       </UiContextMenuItemIndicator>
     </span>
     <slot>{{ title }}</slot>
@@ -11,16 +15,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { ContextMenuRadioItem, useForwardPropsEmits } from "radix-vue";
-  import type { ContextMenuRadioItemEmits, ContextMenuRadioItemProps } from "radix-vue";
+  import { ContextMenuRadioItem, useForwardPropsEmits } from "reka-ui";
+  import type { ContextMenuRadioItemEmits, ContextMenuRadioItemProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = defineProps<
     ContextMenuRadioItemProps & {
-      /**Custom class(es) to add to the element */
-      class?: any;
-      /**The icon to display */
+      /** Custom class(es) to add to the element. */
+      class?: HTMLAttributes["class"];
+      /** The icon to display. */
       icon?: string;
-      /**The title for the item */
+      /** The title for the item. */
       title?: string;
     }
   >();
@@ -29,6 +35,6 @@
   const forwarded = useForwardPropsEmits(reactiveOmit(props, "class", "icon", "title"), emits);
 
   const styles = tv({
-    base: "relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50",
+    base: "relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   });
 </script>

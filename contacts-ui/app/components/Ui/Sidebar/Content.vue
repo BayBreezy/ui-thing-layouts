@@ -1,9 +1,14 @@
 <template>
-  <div data-sidebar="content" :class="sideBarContentStyles({ class: props.class })">
+  <div
+    data-slot="sidebar-content"
+    data-sidebar="content"
+    :class="sideBarContentStyles({ class: normalizeClass(props.class) || undefined })"
+  >
     <slot />
   </div>
 </template>
 <script lang="ts">
+  import { normalizeClass } from "vue";
   import type { HTMLAttributes } from "vue";
 
   export const sideBarContentStyles = tv({
@@ -12,9 +17,7 @@
 </script>
 <script setup lang="ts">
   const props = defineProps<{
-    /**
-     * Additional classes to apply to the sidebar content.
-     */
+    /** Additional classes to apply to the sidebar content. */
     class?: HTMLAttributes["class"];
   }>();
 </script>

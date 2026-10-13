@@ -1,12 +1,12 @@
 <template>
-  <ContextMenuRadioGroup v-bind="forwarded">
+  <ContextMenuRadioGroup data-slot="context-menu-radio-group" v-bind="forwarded">
     <slot />
   </ContextMenuRadioGroup>
 </template>
 
 <script lang="ts" setup>
-  import { ContextMenuRadioGroup, useForwardPropsEmits } from "radix-vue";
-  import type { ContextMenuRadioGroupEmits, ContextMenuRadioGroupProps } from "radix-vue";
+  import { ContextMenuRadioGroup, useForwardPropsEmits } from "reka-ui";
+  import type { ContextMenuRadioGroupEmits, ContextMenuRadioGroupProps } from "reka-ui";
 
   const props = defineProps<ContextMenuRadioGroupProps>();
 

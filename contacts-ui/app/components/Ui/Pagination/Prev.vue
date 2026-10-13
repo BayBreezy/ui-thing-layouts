@@ -1,7 +1,12 @@
 <template>
-  <PaginationPrev v-bind="forwarded">
+  <PaginationPrev
+    data-slot="pagination-previous"
+    aria-label="Go to previous page"
+    v-bind="forwarded"
+  >
     <slot>
-      <UiButton v-if="icon" variant="ghost" size="icon-sm">
+      <UiButton v-if="icon" :variant :size>
+        <span class="sr-only">Previous page</span>
         <Icon :name="icon" />
       </UiButton>
     </slot>
@@ -10,15 +15,27 @@
 
 <script lang="ts" setup>
   import { reactiveOmit } from "@vueuse/core";
-  import { PaginationPrev } from "radix-vue";
-  import type { PaginationPrevProps } from "radix-vue";
+  import { PaginationPrev } from "reka-ui";
+  import type { PaginationPrevProps } from "reka-ui";
 
-  const props = defineProps<
-    PaginationPrevProps & {
-      /** Icon to show */
-      icon?: string;
+  import type { ButtonProps } from "~/components/Ui/Button.vue";
+
+  const props = withDefaults(
+    defineProps<
+      PaginationPrevProps & {
+        /** Icon to show. */
+        icon?: string;
+        /** The variant of the button. */
+        variant?: ButtonProps["variant"];
+        /** The size of the button. */
+        size?: ButtonProps["size"];
+      }
+    >(),
+    {
+      variant: "ghost",
+      size: "icon-sm",
     }
-  >();
+  );
 
   const forwarded = reactiveOmit(props, "icon");
 </script>

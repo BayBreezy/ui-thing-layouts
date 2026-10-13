@@ -1,12 +1,12 @@
 <template>
-  <ContextMenuPortal v-bind="props">
+  <ContextMenuPortal data-slot="context-menu-portal" v-bind="props">
     <slot />
   </ContextMenuPortal>
 </template>
 
 <script lang="ts" setup>
-  import { ContextMenuPortal } from "radix-vue";
-  import type { ContextMenuPortalProps } from "radix-vue";
+  import { ContextMenuPortal } from "reka-ui";
+  import type { ContextMenuPortalProps } from "reka-ui";
 
   const props = defineProps<ContextMenuPortalProps>();
 </script>

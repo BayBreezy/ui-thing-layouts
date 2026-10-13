@@ -1,0 +1,26 @@
+/* App-level extras that are not part of the UI Thing theme. Design tokens live in tailwind.css. */
+@reference "./tailwind.css";
+
+@layer base {
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer components {
+  /** Standard page container used by every route. */
+  .page-shell {
+    @apply mx-auto w-full max-w-6xl p-4 md:p-6 lg:p-8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

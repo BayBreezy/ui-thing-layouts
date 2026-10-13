@@ -1,12 +1,12 @@
 <template>
-  <ContextMenuSub v-bind="forwarded">
+  <ContextMenuSub data-slot="context-menu-sub" v-bind="forwarded">
     <slot />
   </ContextMenuSub>
 </template>
 
 <script lang="ts" setup>
-  import { ContextMenuSub, useForwardPropsEmits } from "radix-vue";
-  import type { ContextMenuSubEmits, ContextMenuSubProps } from "radix-vue";
+  import { ContextMenuSub, useForwardPropsEmits } from "reka-ui";
+  import type { ContextMenuSubEmits, ContextMenuSubProps } from "reka-ui";
 
   const props = defineProps<ContextMenuSubProps>();
   const emits = defineEmits<ContextMenuSubEmits>();
