@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { groupSchema } from "#shared/schemas";
-  import type { Group } from "#shared/types";
+  import type { Group, GroupIcon } from "#shared/types";
   import { groupColors, groupIcons } from "#shared/types";
-  import { clone, groupColorClasses, newGroup } from "~/utils/demo";
+  import { clone, groupColorClasses, groupIconNames, newGroup } from "~/utils/demo";
   const props = defineProps<{ group?: Group }>();
   const open = defineModel<boolean>("open", { default: false });
   const emit = defineEmits<{ saved: [Group] }>();
@@ -11,6 +11,7 @@
   const { pending, error, run } = useAction();
   const form = ref(newGroup());
   const message = ref("");
+  const iconLabel = (icon: string) => icon.replace(/-\d+$/, "").replace(/-/g, " ");
   watch(open, (value) => {
     if (value) {
       form.value = props.group ? clone(props.group) : newGroup();
@@ -77,12 +78,28 @@
             </label>
           </div>
         </fieldset>
-        <div class="space-y-2">
-          <UiLabel :for="`${uid}-icon`">Icon</UiLabel>
-          <UiNativeSelect :id="`${uid}-icon`" v-model="form.icon">
-            <option v-for="icon in groupIcons" :key="icon" :value="icon">{{ icon }}</option>
-          </UiNativeSelect>
-        </div>
+        <fieldset class="space-y-2">
+          <legend class="text-sm font-medium">Icon</legend>
+          <UiToggleGroup
+            type="single"
+            variant="outline"
+            class="flex-wrap justify-start gap-1.5"
+            aria-label="Icon"
+            :model-value="form.icon"
+            @update:model-value="(value) => value && (form.icon = value as GroupIcon)"
+          >
+            <UiToggleGroupItem
+              v-for="icon in groupIcons"
+              :key="icon"
+              :value="icon"
+              :icon="groupIconNames[icon]"
+              variant="outline"
+              :aria-label="iconLabel(icon)"
+              :title="iconLabel(icon)"
+              class="size-10 data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+            />
+          </UiToggleGroup>
+        </fieldset>
         <VerdantError :message="message || error" />
       </form>
       <UiDialogFooter>

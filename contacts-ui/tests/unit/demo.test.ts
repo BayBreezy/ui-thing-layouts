@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { groupIconNames } from "../../app/utils/demo";
 import { restoreSnapshot } from "../../app/utils/persistence";
 import { createDemoState } from "../../server/utils/fixtures";
 import {
@@ -24,7 +25,7 @@ import {
 import { assertRelationships } from "../../shared/demo";
 import { findDuplicates, mergeContacts } from "../../shared/duplicates";
 import { contactSchema, demoStateSchema } from "../../shared/schemas";
-import { referenceDate } from "../../shared/types";
+import { groupIcons, referenceDate } from "../../shared/types";
 import { contactToVCard } from "../../shared/vcard";
 
 const seed = createDemoState();
@@ -63,6 +64,15 @@ describe("seed data", () => {
   });
   it("never leaks faker into shared code", () => {
     expect(Object.keys(seed.contacts[0]!)).not.toContain("faker");
+  });
+});
+
+describe("group icons", () => {
+  it("has a literal icon name for every choice, so the picker and cards can render it", () => {
+    expect(groupIcons.length).toBeGreaterThanOrEqual(24);
+    expect(Object.keys(groupIconNames).sort()).toEqual([...groupIcons].sort());
+    for (const name of Object.values(groupIconNames)) expect(name).toMatch(/^lucide:[a-z0-9-]+$/);
+    expect(seed.groups.every((group) => groupIcons.includes(group.icon))).toBe(true);
   });
 });
 

@@ -207,6 +207,37 @@ test("duplicates can be merged and history moves to the surviving contact", asyn
   expect(saved.contacts.some((c: { id: string }) => c.id === pair.a.id)).toBe(true);
 });
 
+test("a group is created with a color and an icon picked from a visible grid", async ({ page }) => {
+  await open(page, "/groups");
+  await page.getByRole("button", { name: "New group" }).click();
+  const dialog = page.getByRole("dialog", { name: "New group" });
+  await dialog.getByLabel("Name").fill("Trail friends");
+  await expect(dialog.getByRole("button", { name: "users" })).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+  await dialog.getByRole("button", { name: "tent" }).click();
+  await expect(dialog.getByRole("button", { name: "tent" })).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+  await expect(dialog.getByRole("button", { name: "users" })).toHaveAttribute(
+    "aria-pressed",
+    "false"
+  );
+  await dialog.getByRole("button", { name: "Create group" }).click();
+  await expect(page.getByText("Group created").first()).toBeVisible();
+  const card = page.getByRole("listitem").filter({ hasText: "Trail friends" });
+  await expect(card.locator(".i-lucide\\:tent")).toBeVisible();
+  await expect
+    .poll(
+      async () =>
+        (await stored(page))?.groups.find((g: { name: string }) => g.name === "Trail friends")
+          ?.icon ?? ""
+    )
+    .toBe("tent");
+});
+
 test("follow-ups can be added, completed, snoozed and deleted", async ({ page }) => {
   await open(page, "/follow-ups");
   const overdue = seed.followUps.filter((f) => !f.done && f.dueDate < "2026-10-12").length;
