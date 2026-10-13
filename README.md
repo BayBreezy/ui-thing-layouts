@@ -27,6 +27,14 @@ A collection of layouts created with the [UI Thing](https://uithing.com/getting-
 - [Launchpad — Campaign workspace](campaign-ui/) - An interactive Nuxt marketing workspace with campaigns, leads, team chat, editable briefs, analytics, and local demo APIs. [Live site](https://campaigns-ui.behonbaker.com) (deployment managed separately).
 
 <a href="https://campaigns-ui.behonbaker.com"><img src="campaign-ui/public/screenshots/workspace-light.png" alt="Launchpad marketing workspace with campaign results and team context" width="720"></a>
+
+---
+
+- [Mendly — Appointment workspace](dr-appointment-ui/) - An interactive Nuxt clinic scheduling app with a double-booking-proof calendar, a front-desk workflow, patients, providers, a waitlist, reports, a public booking page, and local demo APIs. [Live site](https://mendly.behonbaker.com) (deployment managed separately).
+
+<a href="https://mendly.behonbaker.com"><img src="dr-appointment-ui/public/screenshots/today-light.png" alt="Mendly appointment workspace showing today's visits, the waiting room and what needs attention" width="720"></a>
+
+---
+
 - [Onboarding Steps UI](https://onboarding-steps-ui.behonbaker.com) - A responsive onboarding steps ui.
 - [Site Overview UI](https://site-overview-ui.behonbaker.com) - An analytics site overview ui.
-- [Dr. Appointment UI](https://dr-appointment-ui.behonbaker.com) - Dashboard ui for a doctor's appointment app.
