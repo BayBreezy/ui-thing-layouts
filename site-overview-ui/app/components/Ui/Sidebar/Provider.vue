@@ -1,11 +1,12 @@
 <template>
   <UiTooltipProvider :delay-duration="0">
     <div
+      data-slot="sidebar-wrapper"
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH,
         '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
       }"
-      :class="sideBarProviderStyles({ class: props.class })"
+      :class="sideBarProviderStyles({ class: normalizeClass(props.class) || undefined })"
     >
       <slot v-bind="{ state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar }" />
     </div>
@@ -13,10 +14,11 @@
 </template>
 
 <script lang="ts">
+  import { normalizeClass } from "vue";
   import type { HTMLAttributes, Ref } from "vue";
 
   export const sideBarProviderStyles = tv({
-    base: "group/sidebar-wrapper flex min-h-svh w-full text-sidebar-foreground has-[[data-variant=inset]]:bg-sidebar",
+    base: "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar",
   });
 </script>
 
@@ -25,17 +27,17 @@
     defineProps<{
       /**
        * Default open state of the sidebar.
+       *
        * @default true
        */
       defaultOpen?: boolean;
       /**
        * Open state of the sidebar (controlled).
+       *
        * @default undefined
        */
       open?: boolean;
-      /**
-       * Additional classes to apply to the parent element.
-       */
+      /** Additional classes to apply to the parent element. */
       class?: HTMLAttributes["class"];
     }>(),
     {
@@ -45,30 +47,36 @@
   );
 
   // This sets the cookie to keep the sidebar state.
-  const SIDEBAR_COOKIE = useCookie<boolean>(SIDEBAR_COOKIE_NAME, {
+  const sidebarCookie = useCookie<boolean | undefined>(SIDEBAR_COOKIE_NAME, {
     path: "/",
     maxAge: SIDEBAR_COOKIE_MAX_AGE,
-    default: () => false,
+    default: () => undefined,
   });
 
-  const emits = defineEmits<{
-    "update:open": [open: boolean];
-  }>();
+  const emits = defineEmits<{ "update:open": [open: boolean] }>();
 
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  // Beacon: the server cannot know the viewport, so only trust the media query once mounted.
+  // Otherwise a phone's first client render picks the mobile sheet and fails hydration.
+  const narrow = useMediaQuery("(max-width: 768px)");
+  const mounted = useMounted();
+  const isMobile = computed(() => mounted.value && narrow.value);
   const openMobile = ref(false);
 
+  const initialOpen = computed(() => sidebarCookie.value ?? props.defaultOpen);
+
   const open = useVModel(props, "open", emits, {
-    defaultValue: props.defaultOpen ? props.defaultOpen : SIDEBAR_COOKIE.value,
+    defaultValue: initialOpen.value,
     passive: (props.open === undefined) as false,
   }) as Ref<boolean>;
 
-  function setOpen(value: boolean) {
+  function setOpen(value: MaybeRefOrGetter<boolean>) {
+    value = toValue(value);
     open.value = value; // emits('update:open', value)
-    SIDEBAR_COOKIE.value = value;
+    sidebarCookie.value = value;
   }
 
-  function setOpenMobile(value: boolean) {
+  function setOpenMobile(value: MaybeRefOrGetter<boolean>) {
+    value = toValue(value);
     openMobile.value = value;
   }
 
@@ -87,6 +95,10 @@
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = computed(() => (open.value ? "expanded" : "collapsed"));
+
+  watch(open, (value) => {
+    sidebarCookie.value = value;
+  });
 
   provideSidebarContext({
     state,

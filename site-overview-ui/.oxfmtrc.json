@@ -1,0 +1,25 @@
+{
+  "printWidth": 100,
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "vueIndentScriptAndStyle": true,
+  "sortImports": {},
+  "sortPackageJson": { "sortScripts": true },
+  "sortTailwindcss": {
+    "stylesheet": "./app/assets/css/tailwind.css",
+    "functions": ["tv", "cn"]
+  },
+  "ignorePatterns": [
+    ".nuxt/**",
+    ".output/**",
+    "dist/**",
+    "node_modules/**",
+    ".netlify/**",
+    "bun.lock",
+    "public/screenshots/**",
+    "test-results/**",
+    "playwright-report/**"
+  ]
+}

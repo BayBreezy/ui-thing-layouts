@@ -1,18 +1,24 @@
 <template>
-  <Primitive :class="styles({ class: props.class })" v-bind="forwarded">
+  <Primitive
+    data-slot="sheet-footer"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+    v-bind="forwarded"
+  >
     <slot />
   </Primitive>
 </template>
 
 <script lang="ts" setup>
-  import { Primitive } from "radix-vue";
-  import type { PrimitiveProps } from "radix-vue";
+  import { Primitive } from "reka-ui";
+  import type { PrimitiveProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = withDefaults(
     defineProps<
       PrimitiveProps & {
-        /** Custom class(es) to add to parent element */
-        class?: any;
+        /** Custom class(es) to add to parent element. */
+        class?: HTMLAttributes["class"];
       }
     >(),
     {
@@ -21,6 +27,6 @@
   );
   const forwarded = reactiveOmit(props, "class");
   const styles = tv({
-    base: "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+    base: "mt-auto flex flex-col gap-2 p-4",
   });
 </script>
