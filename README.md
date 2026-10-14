@@ -42,4 +42,6 @@ A collection of layouts created with the [UI Thing](https://uithing.com/getting-
 
 ---
 
-- [Onboarding Steps UI](https://onboarding-steps-ui.behonbaker.com) - A responsive onboarding steps ui.
+- [Waypoint — Onboarding flow](onboarding-steps-ui/) - An interactive Nuxt onboarding flow with account creation, email verification, team invites, server-side validation errors, and local demo APIs. [Live site](https://waypoint.behonbaker.com) (deployment managed separately).
+
+<a href="https://waypoint.behonbaker.com"><img src="onboarding-steps-ui/public/screenshots/account-light.png" alt="Waypoint onboarding flow showing the account step beside its progress timeline" width="720"></a>
