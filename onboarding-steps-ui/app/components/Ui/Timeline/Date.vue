@@ -1,21 +1,27 @@
 <template>
-  <Primitive data-slot="timeline-date" v-bind="forwarded" :class="styles({ class: props.class })">
+  <Primitive
+    data-slot="timeline-date"
+    v-bind="forwarded"
+    :class="styles({ class: normalizeClass(props.class) || undefined })"
+  >
     <slot />
   </Primitive>
 </template>
 
 <script lang="ts" setup>
   import { reactiveOmit } from "@vueuse/core";
-  import { Primitive, useForwardProps } from "radix-vue";
-  import type { PrimitiveProps } from "radix-vue";
+  import { Primitive, useForwardProps } from "reka-ui";
+  import type { PrimitiveProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const styles = tv({
-    base: "mb-1 block text-xs font-medium text-muted-foreground sm:max-sm:group-data-[orientation=vertical]/timeline:h-4",
+    base: "mb-1 block text-xs font-medium text-muted-foreground group-data-[orientation=vertical]/timeline:max-sm:h-4",
   });
   const props = withDefaults(
     defineProps<
       PrimitiveProps & {
-        class?: any;
+        class?: HTMLAttributes["class"];
       }
     >(),
     {

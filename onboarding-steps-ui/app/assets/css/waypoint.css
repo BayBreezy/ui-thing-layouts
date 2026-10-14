@@ -1,0 +1,34 @@
+/* App-level extras that are not part of the UI Thing theme. Design tokens live in tailwind.css. */
+@reference "./tailwind.css";
+
+@layer base {
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.step-enter-active,
+.step-leave-active {
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+.step-enter-from {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.step-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}

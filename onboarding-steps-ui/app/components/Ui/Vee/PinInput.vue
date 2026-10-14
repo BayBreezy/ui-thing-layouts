@@ -11,22 +11,46 @@
         :id="inputId"
         v-bind="{ ...$attrs, ...forwarded }"
         v-model="value"
+        :aria-invalid="!!errorMessage"
         @complete="emits('complete', $event)"
       />
     </div>
-    <TransitionSlide group tag="div">
-      <p v-if="hint && !errorMessage" key="hint" class="mt-1.5 text-sm text-muted-foreground">
+    <AnimatePresence as="div" multiple mode="wait">
+      <motion.p
+        v-if="hint && !errorMessage"
+        :variants
+        initial="initial"
+        exit="initial"
+        animate="animate"
+        :transition="{ type: 'keyframes' }"
+        class="mt-1.5 text-sm text-muted-foreground"
+      >
         {{ hint }}
-      </p>
-      <p v-if="errorMessage" key="errorMessage" class="mt-1.5 text-sm text-destructive">
+      </motion.p>
+
+      <motion.p
+        v-if="errorMessage"
+        :variants
+        initial="initial"
+        exit="initial"
+        animate="animate"
+        :transition="{ type: 'keyframes' }"
+        class="mt-1.5 text-sm text-destructive"
+      >
         {{ errorMessage }}
-      </p>
-    </TransitionSlide>
+      </motion.p>
+    </AnimatePresence>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import type { PinInputRootProps } from "radix-vue";
+  import { motion } from "motion-v";
+  import type { PinInputRootProps } from "reka-ui";
+
+  const variants = {
+    initial: { opacity: 0, y: -2 },
+    animate: { opacity: 1, y: 0 },
+  };
 
   const props = defineProps<
     Omit<PinInputRootProps, "as" | "asChild"> & {

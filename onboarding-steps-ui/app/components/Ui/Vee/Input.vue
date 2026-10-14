@@ -10,7 +10,7 @@
     <div class="relative">
       <slot name="icon">
         <span v-if="hasIcon" class="absolute inset-y-0 left-3 flex items-center justify-center">
-          <Icon v-if="icon" :name="icon" class="h-4 w-4 text-muted-foreground/70" />
+          <Icon v-if="icon" :name="icon" class="size-4 text-muted-foreground/70" />
         </span>
       </slot>
       <slot name="trailingIcon">
@@ -18,7 +18,7 @@
           v-if="hasTrailingIcon"
           class="absolute inset-y-0 right-3 flex items-center justify-center"
         >
-          <Icon v-if="trailingIcon" :name="trailingIcon" class="h-4 w-4 text-muted-foreground/70" />
+          <Icon v-if="trailingIcon" :name="trailingIcon" class="size-4 text-muted-foreground/70" />
         </span>
       </slot>
       <UiInput
@@ -34,19 +34,45 @@
         @blur="handleBlur"
       />
     </div>
-    <TransitionSlide group tag="div">
-      <p v-if="hint && !errorMessage" key="hint" class="mt-1.5 text-sm text-muted-foreground">
-        {{ hint }}
-      </p>
-
-      <p v-if="errorMessage" key="errorMessage" class="mt-1.5 text-sm text-destructive">
-        {{ errorMessage }}
-      </p>
-    </TransitionSlide>
+    <AnimatePresence multiple as="div" mode="wait">
+      <slot name="hint" :error-message="errorMessage" :value>
+        <motion.p
+          v-if="hint && !errorMessage"
+          :variants
+          initial="initial"
+          exit="initial"
+          animate="animate"
+          :transition="{ type: 'keyframes' }"
+          class="mt-1.5 text-sm text-muted-foreground"
+        >
+          {{ hint }}
+        </motion.p>
+      </slot>
+      <slot name="errorMessage" :error-message="errorMessage" :value>
+        <motion.p
+          v-if="errorMessage"
+          :variants
+          initial="initial"
+          exit="initial"
+          animate="animate"
+          :transition="{ type: 'keyframes' }"
+          class="mt-1.5 text-sm text-destructive"
+        >
+          {{ errorMessage }}
+        </motion.p>
+      </slot>
+    </AnimatePresence>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { motion } from "motion-v";
+
+  const variants = {
+    initial: { opacity: 0, y: -2 },
+    animate: { opacity: 1, y: 0 },
+  };
+
   const props = defineProps<{
     label?: string;
     labelHint?: string;

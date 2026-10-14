@@ -1,18 +1,24 @@
 <template>
-  <ScrollAreaThumb v-bind="forwarded" :class="styles({ orientation, class: props.class })">
+  <ScrollAreaThumb
+    data-slot="scroll-area-thumb"
+    v-bind="forwarded"
+    :class="styles({ orientation, class: normalizeClass(props.class) || undefined })"
+  >
     <slot />
   </ScrollAreaThumb>
 </template>
 
 <script lang="ts" setup>
-  import { ScrollAreaThumb } from "radix-vue";
-  import type { ScrollAreaThumbProps } from "radix-vue";
+  import { ScrollAreaThumb } from "reka-ui";
+  import type { ScrollAreaThumbProps } from "reka-ui";
+  import { normalizeClass } from "vue";
+  import type { HTMLAttributes } from "vue";
 
   const props = withDefaults(
     defineProps<
       ScrollAreaThumbProps & {
-        /** Custom class(es) to add to the parent */
-        class?: any;
+        /** Custom class(es) to add to the parent. */
+        class?: HTMLAttributes["class"];
         orientation?: "vertical" | "horizontal";
       }
     >(),
