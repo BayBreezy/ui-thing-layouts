@@ -67,6 +67,16 @@ export function applyParams(prefs: Preferences, params: Params, siteIds: string[
   prefs.filters = filters;
 }
 
+/**
+ * Opens the overview with a view applied. Navigation comes first on purpose: the URL sync writes
+ * preference changes to the route that is current at that moment, so applying a view before the
+ * navigation lands would rewrite the page being left and cancel the move.
+ */
+export async function openOverview(apply: () => void) {
+  await navigateTo("/");
+  apply();
+}
+
 /** The report question derived from the saved preferences, plus the setters that change it. */
 export function useReportQuery() {
   const { state } = useDemo();
@@ -164,7 +174,19 @@ export function useReportUrlSync() {
     }
     write();
   }
-  watch(ready, reconcile, { immediate: true });
-  watch(() => route.fullPath, reconcile);
-  watch(serialized, write, { deep: true });
+  // Until the first reconcile has run, the preferences may still be a stale snapshot that is about
+  // to be overridden by the address bar. Writing them back to the URL first would queue a
+  // navigation that undoes a shared link, so nothing is written before the link has been read.
+  let started = false;
+  function start() {
+    if (started || !ready.value || !state.value) return;
+    started = true;
+    reconcile();
+  }
+  watch(ready, start, { immediate: true });
+  watch(
+    () => route.fullPath,
+    () => started && reconcile()
+  );
+  watch(serialized, () => started && write(), { deep: true });
 }

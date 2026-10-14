@@ -151,6 +151,18 @@ test("a shared link opens the exact view", async ({ page }) => {
   );
 });
 
+test("a shared link wins over the view saved in this browser", async ({ page }) => {
+  await open(page, "/?range=7d&segment=mobile");
+  await storedWhen(page, (state) => state.preferences.segment === "mobile");
+  await open(page, "/?range=90d&segment=paid");
+  await expect(page.getByLabel("Date range")).toHaveValue("90d");
+  await expect(page.getByRole("list", { name: "Active filters" })).toContainText("Paid");
+  // Give any late navigation a chance to undo the link, then check it held.
+  await page.waitForTimeout(500);
+  await expect(page).toHaveURL(/range=90d&segment=paid/);
+  await storedWhen(page, (state) => state.preferences.range.preset === "90d");
+});
+
 test("a customized layout is saved and survives a reload", async ({ page }) => {
   await open(page, "/");
   await page.getByRole("button", { name: "Customize" }).click();
@@ -193,6 +205,18 @@ test("the pages table searches, sorts, opens details and exports", async ({ page
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export CSV" }).click();
   expect((await download).suggestedFilename()).toBe("northwind-pages.csv");
+});
+
+test("a page's details open the overview filtered to that page in one click", async ({ page }) => {
+  await open(page, "/pages");
+  await page.locator("tbody tr", { hasText: "Hiking boots" }).getByRole("button").click();
+  await page.getByRole("button", { name: "See the overview for this page" }).click();
+  await expect(page).toHaveURL(/\/\?.*path=\/shop\/boots/);
+  await expect(page.getByRole("heading", { name: "Site overview" })).toBeVisible();
+  await expect(page.getByRole("list", { name: "Active filters" })).toContainText("Hiking boots");
+  await expect(card(page, "Total sessions")).toContainText(
+    figure({ filters: { ...emptyFilters(), page: "/shop/boots" } })
+  );
 });
 
 test("goals validate, persist and can be removed", async ({ page }) => {
@@ -245,14 +269,21 @@ test("a view can be saved as a report, reopened and deleted", async ({ page }) =
   await page.getByRole("button", { name: "Save report" }).click();
   const list = page.getByRole("list", { name: "Saved reports" });
   await expect(list).toContainText("Mobile this week");
-  await page.goto("/reports");
-  await ready(page);
+  // Start from a different view, then arrive on Reports by in-app navigation. Opening the report
+  // has to change the preferences and move to the overview at the same time.
+  await open(page, "/?range=90d&segment=paid");
+  await page.getByRole("link", { name: "Reports" }).click();
+  await expect(page).toHaveURL(/\/reports\?.*range=90d/);
   await page
     .locator("li", { has: page.getByRole("heading", { name: "Mobile this week" }) })
     .getByRole("button", { name: "Open" })
     .click();
-  await expect(page).toHaveURL(/range=7d/);
+  // One click is enough: it lands on the overview with the view applied.
+  await expect(page).toHaveURL(/\/\?.*range=7d/);
   await expect(page).toHaveURL(/segment=mobile/);
+  await expect(page.getByLabel("Date range")).toHaveValue("7d");
+  await expect(page.getByRole("list", { name: "Active filters" })).toContainText("Mobile");
+  await expect(page.getByRole("heading", { name: "Site overview" })).toBeVisible();
   await page.goto("/reports");
   await ready(page);
   await page.getByRole("button", { name: "Delete Mobile this week" }).click();

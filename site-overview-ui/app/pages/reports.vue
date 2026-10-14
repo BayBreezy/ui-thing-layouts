@@ -80,14 +80,15 @@
     confirmOpen.value = true;
   }
   async function open(report: SavedReport) {
-    const prefs = state.value?.preferences;
-    if (!prefs) return;
-    prefs.siteId = report.siteId;
-    prefs.range = clone(report.range);
-    prefs.compare = report.compare;
-    prefs.segment = report.segment;
-    prefs.filters = clone(report.filters);
-    await navigateTo("/");
+    await openOverview(() => {
+      const prefs = state.value?.preferences;
+      if (!prefs) return;
+      prefs.siteId = report.siteId;
+      prefs.range = clone(report.range);
+      prefs.compare = report.compare;
+      prefs.segment = report.segment;
+      prefs.filters = clone(report.filters);
+    });
   }
   async function duplicate(report: SavedReport) {
     const saved = await run(() =>

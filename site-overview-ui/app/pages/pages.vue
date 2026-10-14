@@ -56,9 +56,8 @@
     open.value = true;
   }
   async function filterTo(row: PageRow) {
-    setFilter("page", row.path);
     open.value = false;
-    await navigateTo("/");
+    await openOverview(() => setFilter("page", row.path));
   }
   function exportCsv() {
     downloadFile(`${site.value?.id ?? "beacon"}-pages.csv`, pagesCsv(filtered.value));
