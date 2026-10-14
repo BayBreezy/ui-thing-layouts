@@ -36,5 +36,10 @@ A collection of layouts created with the [UI Thing](https://uithing.com/getting-
 
 ---
 
+- [Beacon — Site analytics workspace](site-overview-ui/) - An interactive Nuxt web analytics app with a cross-filtering overview, a pages table, sources and audience breakdowns, goals and funnels, a live feed, saved reports, and local demo APIs. [Live site](https://beacon.behonbaker.com) (deployment managed separately).
+
+<a href="https://beacon.behonbaker.com"><img src="site-overview-ui/public/screenshots/overview-light.png" alt="Beacon site analytics workspace showing traffic figures, a comparison chart and the top lists" width="720"></a>
+
+---
+
 - [Onboarding Steps UI](https://onboarding-steps-ui.behonbaker.com) - A responsive onboarding steps ui.
-- [Site Overview UI](https://site-overview-ui.behonbaker.com) - An analytics site overview ui.
