@@ -1,0 +1,32 @@
+{
+  "plugins": ["typescript", "oxc", "vue"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "no-unused-vars": "off",
+    "typescript/no-explicit-any": "off"
+  },
+  "ignorePatterns": [
+    ".nuxt/**",
+    ".output/**",
+    "dist/**",
+    "node_modules/**",
+    ".netlify/**",
+    "test-results/**",
+    "playwright-report/**"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "app/components/Waypoint/**",
+        "app/pages/**",
+        "app/layouts/**",
+        "app/composables/**"
+      ],
+      "rules": {
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
+      }
+    }
+  ]
+}
