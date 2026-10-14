@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#fffaf5"/><stop offset="1" stop-color="#ffedd5"/></linearGradient><linearGradient id="accent"><stop stop-color="#c2410c"/><stop offset="1" stop-color="#9a3412"/></linearGradient><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c2410c" stop-opacity=".28"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#bg)"/><circle cx="1120" cy="50" r="320" fill="#fed7aa" opacity=".4"/><circle cx="1160" cy="540" r="210" fill="#fdba74" opacity=".3"/>
+<rect x="70" y="65" width="46" height="46" rx="12" fill="#c2410c"/><circle cx="87" cy="88" r="4.300" fill="#fff"/><path d="M96 80.500a10.900 10.900 0 0 1 0 15.500" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M102.300 75a19 19 0 0 1 0 26.500" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7" fill="none"/>
+<text x="130" y="99" fill="#431407" font-family="Arial,sans-serif" font-size="32" font-weight="700">beacon.</text>
+<text x="70" y="207" fill="#9a3412" font-family="Arial,sans-serif" font-size="14" letter-spacing="3">SITE ANALYTICS WITHOUT THE NOISE.</text>
+<text x="68" y="292" fill="#431407" font-family="Arial,sans-serif" font-size="54" font-weight="700">See your whole site</text><text x="68" y="358" fill="url(#accent)" font-family="Arial,sans-serif" font-size="54" font-weight="700">at a glance.</text>
+<text x="70" y="440" fill="#7c4a2d" font-family="Arial,sans-serif" font-size="21">Traffic, sources, goals and a live feed, with filters that really cross-filter.</text>
+<rect x="70" y="491" width="214" height="42" rx="12" fill="#c2410c"/><text x="93" y="518" fill="white" font-family="Arial,sans-serif" font-size="15">Interactive demo workspace</text>
+<text x="70" y="582" fill="#7c4a2d" font-family="Arial,sans-serif" font-size="14">Designed &amp; built by Behon Baker · Nuxt 4 / UI Thing</text>
+<g transform="translate(760 130)"><rect width="370" height="370" rx="20" fill="white" stroke="#fed7aa"/>
+<text x="24" y="42" fill="#431407" font-family="Arial,sans-serif" font-size="18" font-weight="700">Site overview</text><text x="346" y="42" text-anchor="end" fill="#7c4a2d" font-family="Arial,sans-serif" font-size="13">Last 30 days</text>
+<g font-family="Arial,sans-serif"><rect x="24" y="64" width="102" height="64" rx="10" fill="#fff7ed" stroke="#c2410c"/><text x="36" y="86" fill="#7c4a2d" font-size="11">Sessions</text><text x="36" y="113" fill="#431407" font-size="22" font-weight="700">14.9K</text>
+<rect x="134" y="64" width="102" height="64" rx="10" fill="#fff7ed"/><text x="146" y="86" fill="#7c4a2d" font-size="11">Visitors</text><text x="146" y="113" fill="#431407" font-size="22" font-weight="700">10.8K</text>
+<rect x="244" y="64" width="102" height="64" rx="10" fill="#fff7ed"/><text x="256" y="86" fill="#7c4a2d" font-size="11">Bounce rate</text><text x="256" y="113" fill="#431407" font-size="22" font-weight="700">44.8%</text></g>
+<path d="M24 280 C 54 262 70 270 96 246 S 140 214 168 232 S 206 262 230 236 S 266 170 292 190 S 330 240 346 214 L346 320 L24 320Z" fill="url(#area)"/>
+<path d="M24 280 C 54 262 70 270 96 246 S 140 214 168 232 S 206 262 230 236 S 266 170 292 190 S 330 240 346 214" fill="none" stroke="#c2410c" stroke-width="3" stroke-linecap="round"/>
+<path d="M24 292 C 60 282 84 290 110 270 S 160 262 190 268 S 250 250 290 262 S 330 270 346 256" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
+<line x1="170" y1="150" x2="170" y2="320" stroke="#c2410c" stroke-dasharray="3 4" opacity=".6"/><rect x="161" y="142" width="18" height="16" rx="3" fill="#475569"/><text x="170" y="154" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="11" font-weight="700">1</text>
+<text x="24" y="346" fill="#7c4a2d" font-family="Arial,sans-serif" font-size="12">Sep 14</text><text x="346" y="346" text-anchor="end" fill="#7c4a2d" font-family="Arial,sans-serif" font-size="12">Oct 13</text>
+</g></svg>
