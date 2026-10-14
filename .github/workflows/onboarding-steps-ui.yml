@@ -1,0 +1,41 @@
+name: Waypoint Onboarding
+on:
+  push:
+    paths: ["onboarding-steps-ui/**", ".github/workflows/onboarding-steps-ui.yml"]
+  pull_request:
+    paths: ["onboarding-steps-ui/**", ".github/workflows/onboarding-steps-ui.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: onboarding-steps-ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.23.3"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.2"
+      - run: bun install --frozen-lockfile
+      - run: bun run format:check
+      - run: bun run lint
+      - run: bun run typecheck
+      - run: bun run test
+      - run: bunx playwright install --with-deps chromium
+      - run: bun run test:e2e
+      - run: bun run build
+      - name: Verify Netlify SSR and API output
+        run: NITRO_PRESET=netlify bun run build
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: waypoint-browser-results
+          path: |
+            onboarding-steps-ui/playwright-report
+            onboarding-steps-ui/test-results
+          retention-days: 7
