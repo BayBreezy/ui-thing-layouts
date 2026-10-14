@@ -204,7 +204,7 @@ test("goals validate, persist and can be removed", async ({ page }) => {
   await expect(form).toContainText("Name is required");
   await form.getByLabel("Goal name").fill("Pricing view");
   await form.getByLabel("Page path").fill("pricing");
-  await form.getByRole("button", { name: "Add goal" }).click();
+  await form.getByLabel("Page path").press("Tab");
   await expect(form).toContainText("starts with /");
   await form.getByLabel("Page path").fill("/shop/boots");
   await expect(form).not.toContainText("starts with /");
@@ -307,8 +307,9 @@ test("settings save, add a site, and reset restores the seed", async ({ page }) 
   await page.getByRole("button", { name: "Add site" }).first().click();
   const form = page.getByRole("dialog");
   await form.getByLabel("Site name").fill("Acme Studio");
+  // Blur rather than submit: a submit's validation is async and would race the next fill.
   await form.getByLabel("Domain").fill("not a domain");
-  await form.getByRole("button", { name: "Add site" }).click();
+  await form.getByLabel("Domain").press("Tab");
   await expect(form).toContainText("Enter a domain like example.com");
   await form.getByLabel("Domain").fill("acme.example");
   // The message animates out and shifts the form; click only once the layout has settled.
