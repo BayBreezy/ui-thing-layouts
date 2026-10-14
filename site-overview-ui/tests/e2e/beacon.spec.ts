@@ -207,6 +207,7 @@ test("goals validate, persist and can be removed", async ({ page }) => {
   await form.getByRole("button", { name: "Add goal" }).click();
   await expect(form).toContainText("starts with /");
   await form.getByLabel("Page path").fill("/shop/boots");
+  await expect(form).not.toContainText("starts with /");
   await form.getByRole("button", { name: "Add goal" }).click();
   await expect(page.locator("tbody tr")).toHaveCount(before + 1);
   const row = page.locator("tbody tr", { hasText: "Pricing view" });
@@ -310,6 +311,8 @@ test("settings save, add a site, and reset restores the seed", async ({ page }) 
   await form.getByRole("button", { name: "Add site" }).click();
   await expect(form).toContainText("Enter a domain like example.com");
   await form.getByLabel("Domain").fill("acme.example");
+  // The message animates out and shifts the form; click only once the layout has settled.
+  await expect(form).not.toContainText("Enter a domain like example.com");
   await form.getByRole("button", { name: "Add site" }).click();
   await expect(page.getByRole("list", { name: "Sites" })).toContainText("Acme Studio");
   await page.getByRole("button", { name: "Switch site" }).click();
