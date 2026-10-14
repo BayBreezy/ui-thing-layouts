@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient><linearGradient id="accent"><stop stop-color="#1d4ed8"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#bg)"/><circle cx="1120" cy="50" r="320" fill="#bfdbfe" opacity=".4"/><circle cx="1160" cy="540" r="210" fill="#93c5fd" opacity=".3"/>
+<rect x="70" y="65" width="46" height="46" rx="12" fill="#1d4ed8"/><path d="M89 100c0-10.400 18.400-6.300 18.400-19.500" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".7"/><circle cx="89" cy="100" r="4.300" fill="#fff"/><circle cx="107.400" cy="80.500" r="4.300" fill="#fff"/>
+<text x="130" y="99" fill="#172554" font-family="Arial,sans-serif" font-size="32" font-weight="700">waypoint.</text>
+<text x="70" y="207" fill="#1e40af" font-family="Arial,sans-serif" font-size="14" letter-spacing="3">ONBOARDING THAT KNOWS WHERE IT'S GOING.</text>
+<text x="68" y="292" fill="#172554" font-family="Arial,sans-serif" font-size="54" font-weight="700">Get started</text><text x="68" y="358" fill="url(#accent)" font-family="Arial,sans-serif" font-size="54" font-weight="700">in four steps.</text>
+<text x="70" y="440" fill="#334155" font-family="Arial,sans-serif" font-size="21">Create an account, verify your email, invite your team and go.</text>
+<rect x="70" y="491" width="214" height="42" rx="12" fill="#1d4ed8"/><text x="93" y="518" fill="white" font-family="Arial,sans-serif" font-size="15">Interactive demo flow</text>
+<text x="70" y="582" fill="#334155" font-family="Arial,sans-serif" font-size="14">Designed &amp; built by Behon Baker · Nuxt 4 / UI Thing</text>
+<g transform="translate(760 130)"><rect width="370" height="370" rx="20" fill="white" stroke="#bfdbfe"/>
+<text x="185" y="52" text-anchor="middle" fill="#172554" font-family="Arial,sans-serif" font-size="20" font-weight="700">Verify your email</text>
+<text x="185" y="76" text-anchor="middle" fill="#475569" font-family="Arial,sans-serif" font-size="13">We sent a code to jo@example.com</text>
+<g fill="#eff6ff" stroke="#1d4ed8"><rect x="40" y="108" width="48" height="56" rx="10"/><rect x="96" y="108" width="48" height="56" rx="10"/><rect x="152" y="108" width="48" height="56" rx="10"/></g>
+<g fill="#fff" stroke="#bfdbfe"><rect x="208" y="108" width="48" height="56" rx="10"/><rect x="264" y="108" width="48" height="56" rx="10"/></g>
+<g fill="#172554" font-family="Arial,sans-serif" font-size="26" font-weight="700" text-anchor="middle"><text x="64" y="146">4</text><text x="120" y="146">8</text><text x="176" y="146">2</text></g>
+<rect x="40" y="196" width="290" height="44" rx="10" fill="#1d4ed8"/><text x="185" y="224" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="15" font-weight="700">Verify account</text>
+<g><rect x="40" y="318" width="64" height="8" rx="4" fill="#1d4ed8"/><rect x="110" y="318" width="64" height="8" rx="4" fill="#1d4ed8"/><rect x="180" y="318" width="64" height="8" rx="4" fill="#e2e8f0"/><rect x="250" y="318" width="64" height="8" rx="4" fill="#e2e8f0"/></g>
+</g></svg>
