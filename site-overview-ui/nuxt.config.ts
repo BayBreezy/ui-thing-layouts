@@ -32,7 +32,15 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
-      include: ["@tanstack/vue-table", "reka-ui", "tailwind-variants", "vue3-apexcharts", "yup"],
+      include: [
+        "@tanstack/vue-table",
+        "@vee-validate/yup",
+        "@vue/devtools-core",
+        "reka-ui",
+        "tailwind-variants",
+        "vue3-apexcharts",
+        "yup",
+      ],
     },
   },
   colorMode: {
