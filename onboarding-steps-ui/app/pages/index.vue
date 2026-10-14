@@ -1,23 +1,20 @@
-<template>
-  <div class="relative flex h-full w-full items-center justify-center">
-    <TransitionFade mode="out-in">
-      <template v-if="currentStep == 1">
-        <Register />
-      </template>
-      <template v-if="currentStep == 2">
-        <Verify />
-      </template>
-      <template v-if="currentStep == 3">
-        <InviteTeam />
-      </template>
-      <template v-if="currentStep == 4">
-        <Welcome />
-      </template>
-    </TransitionFade>
-    <Bars />
-  </div>
-</template>
+<script setup lang="ts">
+  const { currentStep } = useOnboarding();
+  usePageSeo({ title: undefined });
 
-<script lang="ts" setup>
-  const { currentStep } = useTimeline();
+  const stepComponents = [
+    resolveComponent("WaypointStepRegister"),
+    resolveComponent("WaypointStepVerify"),
+    resolveComponent("WaypointStepInvite"),
+    resolveComponent("WaypointStepWelcome"),
+  ];
+
+  // Move focus to the new step's heading so keyboard and screen reader users land on it.
+  const focusHeading = () =>
+    document.getElementById("step-heading")?.focus({ preventScroll: true });
 </script>
+<template>
+  <Transition name="step" mode="out-in" @after-enter="focusHeading">
+    <component :is="stepComponents[currentStep - 1]" :key="currentStep" class="w-full" />
+  </Transition>
+</template>
